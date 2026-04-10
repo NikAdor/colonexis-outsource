@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\CoursePurchase;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -34,6 +35,7 @@ class PublicCourseController extends Controller
             $isEnrolled = auth()->user()
                 ->coursePurchases()
                 ->where('course_id', $course->id)
+                ->where('status', CoursePurchase::STATUS_PAID)
                 ->exists();
         }
 

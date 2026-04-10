@@ -1,0 +1,102 @@
+.student-shell {
+    @apply min-h-screen bg-ed-surface text-ed-on-surface antialiased;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+.student-shell__topbar {
+    @apply fixed top-0 z-50 flex w-full items-center justify-between bg-slate-50/80 px-6 py-3 shadow-sm backdrop-blur-xl;
+}
+
+.student-shell__brand {
+    @apply font-manrope text-xl font-black tracking-tight text-slate-900;
+}
+
+.student-shell__search-wrap {
+    @apply relative hidden md:flex;
+}
+
+.student-shell__search-icon {
+    @apply absolute left-3 top-1/2 -translate-y-1/2 text-slate-400;
+}
+
+.student-shell__search-input {
+    @apply w-64 rounded-lg bg-slate-100 py-2 pl-10 pr-4 text-sm transition-all focus:ring-2 focus:ring-sky-500;
+    border: none;
+}
+
+.student-shell__top-actions {
+    @apply flex items-center gap-4;
+}
+
+.student-shell__notif-btn {
+    @apply relative rounded-lg p-2 text-slate-600 transition-colors hover:bg-slate-200/50;
+}
+
+.student-shell__notif-dot {
+    @apply absolute right-2 top-2 h-2 w-2 rounded-full bg-sky-500;
+}
+
+.student-shell__profile {
+    @apply flex items-center gap-3 border-l border-slate-200 pl-4;
+}
+
+.student-shell__profile-label {
+    @apply text-sm font-bold text-slate-900;
+}
+
+.student-shell__avatar {
+    @apply h-8 w-8 overflow-hidden rounded-full bg-slate-200;
+}
+
+.student-shell__sidebar {
+    @apply fixed left-0 top-0 z-40 flex h-full w-64 flex-col border-r border-slate-100 bg-slate-50 pt-20;
+}
+
+.student-shell__sidebar-head {
+    @apply mb-6 px-6 py-4;
+}
+
+.student-shell__sidebar-title {
+    @apply font-manrope text-slate-900 font-extrabold;
+}
+
+.student-shell__sidebar-subtitle {
+    @apply text-xs font-medium text-slate-500;
+}
+
+.student-shell__nav {
+    @apply flex-1 space-y-1 px-4;
+}
+
+.student-shell__nav-link {
+    @apply flex items-center gap-3 px-4 py-3 text-slate-500 transition-all duration-150 active:scale-95 hover:bg-slate-100 hover:text-slate-900;
+}
+
+.student-shell__nav-link.is-active {
+    @apply border-r-2 border-sky-500 text-sky-500 font-semibold;
+}
+
+.student-shell__nav-text {
+    @apply text-sm;
+}
+
+.student-shell__sidebar-footer {
+    @apply mt-auto px-4 py-6;
+}
+
+.student-shell__primary-btn {
+    @apply flex w-full items-center justify-center gap-2 rounded-md bg-ed-primary-container py-3 text-sm font-bold text-white transition-opacity hover:opacity-90;
+}
+
+.student-shell__help-link {
+    @apply mt-4 flex items-center gap-3 rounded-md px-4 py-3 text-slate-500 transition-all hover:bg-slate-100 hover:text-slate-900;
+}
+
+.student-shell__main {
+    @apply min-h-screen pt-24;
+    margin-left: 16rem; /* 64 */
+}
+
+.student-shell__container {
+    @apply mx-auto max-w-7xl px-8 pb-12;
+}

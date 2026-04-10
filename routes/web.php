@@ -3,11 +3,13 @@
 use App\Http\Controllers\Admin\CourseController as AdminCourseController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\CourseLearningController;
 use App\Http\Controllers\CoursePurchaseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicCourseController;
 use App\Http\Controllers\PublicEventController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\XenditWebhookController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -42,6 +44,7 @@ Route::get('/dashboard', [UserController::class, 'dashboard'])->middleware(['aut
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/courses/{course}/purchase', [CoursePurchaseController::class, 'store'])->name('courses.purchase');
+    Route::get('/courses/{course:slug}/learn/{lesson?}', [CourseLearningController::class, 'show'])->name('courses.learn');
     Route::get('/inbox', function () {
         $user = auth()->user();
         abort_unless($user && ($user->isAdmin() || $user->isStaff()), 403);
@@ -50,6 +53,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('inbox');
     Route::get('/help', fn () => Inertia::render('Help'))->name('help');
 });
+
+Route::post('/webhooks/xendit/invoice', [XenditWebhookController::class, 'invoice'])->name('webhooks.xendit.invoice');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

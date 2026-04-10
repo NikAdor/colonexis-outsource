@@ -456,10 +456,10 @@ async function shareCourse() {
                             <div v-if="isEnrolled" class="mb-8 space-y-3">
                                 <p class="text-sm font-medium text-ed-on-surface">You are enrolled.</p>
                                 <Link
-                                    :href="route('dashboard')"
+                                    :href="route('courses.learn', { course: course.slug })"
                                     class="course-show-editorial-gradient flex w-full items-center justify-center rounded-[0.25rem] py-4 text-center text-sm font-bold text-white transition-transform active:scale-[0.98]"
                                 >
-                                    Open dashboard
+                                    Start learning
                                 </Link>
                             </div>
                             <div v-else-if="canEnroll" class="mb-8 space-y-3">

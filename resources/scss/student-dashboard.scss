@@ -1,0 +1,209 @@
+.student-dashboard__welcome {
+    @apply mb-10;
+}
+
+.student-dashboard__title {
+    @apply mb-2 font-manrope text-4xl font-black tracking-tight text-slate-900;
+}
+
+.student-dashboard__subtitle {
+    @apply max-w-2xl text-slate-500;
+}
+
+.student-dashboard__grid {
+    @apply mb-12 grid grid-cols-12 gap-6;
+}
+
+.student-dashboard__stats {
+    @apply col-span-12 grid grid-cols-1 gap-4 lg:col-span-4;
+}
+
+.student-dashboard__stat-card {
+    @apply flex flex-col justify-between rounded-lg bg-ed-surface-container-low p-6;
+}
+
+.student-dashboard__stat-label {
+    @apply text-xs font-bold uppercase tracking-widest text-slate-500;
+}
+
+.student-dashboard__stat-value-row {
+    @apply mt-4 flex items-end justify-between;
+}
+
+.student-dashboard__stat-value {
+    @apply text-5xl font-black text-slate-900;
+}
+
+.student-dashboard__hero {
+    @apply relative col-span-12 overflow-hidden rounded-lg bg-ed-primary-container p-8 text-white lg:col-span-8;
+}
+
+.student-dashboard__hero-bg {
+    @apply absolute inset-0 bg-cover bg-center opacity-20 mix-blend-overlay transition-transform duration-700;
+    background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc4b?auto=format&fit=crop&q=80&w=1200');
+}
+
+.student-dashboard__hero:hover .student-dashboard__hero-bg {
+    transform: scale(1.05);
+}
+
+.student-dashboard__hero-inner {
+    @apply relative z-10 flex h-full flex-col justify-between;
+}
+
+.student-dashboard__hero-tag {
+    @apply mb-4 inline-block rounded bg-sky-500/20 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-sky-200;
+}
+
+.student-dashboard__hero-title {
+    @apply mb-4 text-3xl font-black leading-tight;
+}
+
+.student-dashboard__hero-subtitle {
+    @apply mb-8 max-w-md text-slate-300;
+}
+
+.student-dashboard__hero-progress {
+    @apply w-full;
+}
+
+.student-dashboard__hero-progress-head {
+    @apply mb-2 flex items-end justify-between;
+}
+
+.student-dashboard__hero-track {
+    @apply h-1.5 w-full overflow-hidden rounded-full bg-white/10;
+}
+
+.student-dashboard__hero-fill {
+    @apply h-full rounded-full bg-sky-500;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.student-dashboard__hero-cta {
+    @apply mt-8 inline-flex w-fit rounded-md bg-white px-6 py-3 font-bold text-slate-900 transition-colors hover:bg-sky-500 hover:text-white;
+}
+
+.student-dashboard__row2 {
+    @apply grid grid-cols-12 gap-8;
+}
+
+.student-dashboard__left {
+    @apply col-span-12 space-y-12 lg:col-span-8;
+}
+
+.student-dashboard__right {
+    @apply col-span-12 lg:col-span-4;
+}
+
+.student-dashboard__sticky {
+    @apply sticky top-24;
+}
+
+.student-dashboard__section-head {
+    @apply mb-6 flex items-center justify-between;
+}
+
+.student-dashboard__section-title {
+    @apply text-xl font-black text-slate-900;
+}
+
+.student-dashboard__section-link {
+    @apply text-sm font-bold text-sky-500 hover:underline;
+}
+
+.student-dashboard__recs {
+    @apply grid grid-cols-1 gap-6 md:grid-cols-2;
+}
+
+.student-dashboard__course-card {
+    @apply rounded bg-ed-surface-container-lowest p-5 transition-all hover:bg-white hover:shadow-xl hover:shadow-slate-200/50;
+}
+
+.student-dashboard__course-media {
+    @apply mb-4 h-40 overflow-hidden rounded bg-slate-100;
+}
+
+.student-dashboard__course-img {
+    @apply h-full w-full object-cover transition-transform duration-500 group-hover:scale-110;
+}
+
+.student-dashboard__course-pill {
+    @apply mb-2 inline-block rounded bg-slate-100 px-2 py-1 text-[10px] font-bold uppercase text-slate-600;
+}
+
+.student-dashboard__course-title {
+    @apply mb-2 font-bold leading-snug text-slate-900;
+}
+
+.student-dashboard__course-desc {
+    @apply mb-4 line-clamp-2 text-xs text-slate-500;
+}
+
+.student-dashboard__course-foot {
+    @apply mt-auto flex items-center justify-between border-t border-slate-50 pt-4;
+}
+
+.student-dashboard__course-meta {
+    @apply flex items-center gap-2;
+}
+
+.student-dashboard__course-action {
+    @apply text-xs font-bold text-sky-500;
+}
+
+.student-dashboard__activity {
+    @apply overflow-hidden rounded bg-ed-surface-container-lowest;
+}
+
+.student-dashboard__activity-row {
+    @apply flex items-start gap-4 border-b border-slate-50 p-4;
+}
+
+.student-dashboard__activity-icon {
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-full;
+}
+
+.student-dashboard__sessions {
+    @apply rounded-lg bg-ed-surface-container-high p-6;
+}
+
+.student-dashboard__sessions-head {
+    @apply mb-6 flex items-center gap-2;
+}
+
+.student-dashboard__session {
+    @apply cursor-pointer;
+}
+
+.student-dashboard__session-eyebrow {
+    @apply mb-1 text-[10px] font-bold uppercase tracking-tighter text-sky-500;
+}
+
+.student-dashboard__session-title {
+    @apply font-bold text-slate-900 transition-colors group-hover:text-sky-500;
+}
+
+.student-dashboard__session-meta {
+    @apply mt-2 text-xs font-medium text-slate-500;
+}
+
+.student-dashboard__sync-btn {
+    @apply mt-8 w-full rounded-md bg-slate-200 py-3 text-sm font-bold text-slate-900 transition-colors hover:bg-slate-300;
+}
+
+.student-dashboard__newsletter {
+    @apply mt-8 rounded-lg border-l-4 border-sky-500 bg-sky-500/10 p-6;
+}
+
+.student-dashboard__newsletter-link {
+    @apply flex items-center gap-1 text-xs font-black uppercase tracking-widest text-sky-600;
+}
+
+.student-dashboard__newsletter-link .material-symbols-outlined {
+    @apply transition-transform;
+}
+
+.student-dashboard__newsletter-link:hover .material-symbols-outlined {
+    transform: translateX(0.25rem);
+}

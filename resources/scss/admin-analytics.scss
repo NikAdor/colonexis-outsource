@@ -1,0 +1,25 @@
+.admin-analytics {
+    .admin-analytics__stats {
+        @apply mb-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4;
+    }
+
+    .admin-analytics__stat-card {
+        @apply flex flex-col gap-2 rounded-lg bg-ed-surface-container-lowest p-6;
+    }
+
+    .admin-analytics__bento {
+        @apply grid grid-cols-12 gap-6;
+    }
+
+    .admin-analytics__panel {
+        @apply rounded-lg bg-ed-surface-container-lowest p-8;
+    }
+
+    .admin-analytics__panel-dark {
+        @apply rounded-lg bg-ed-primary-container p-8 text-white dark:bg-ed-curator-shell;
+    }
+
+    .admin-analytics__activity {
+        @apply mt-10 rounded-lg bg-ed-surface-container-lowest p-8 dark:bg-white/5;
+    }
+}

@@ -13,6 +13,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    xendit_callback_configured: {
+        type: Boolean,
+        default: false,
+    },
     paymongo_key_configured: {
         type: Boolean,
         default: false,
@@ -24,6 +28,7 @@ const form = useForm({
     courses_enabled: props.courses_enabled,
     payment_method: props.payment_method,
     xendit_secret_key: '',
+    xendit_callback_token: '',
     paymongo_secret_key: '',
 });
 
@@ -115,6 +120,25 @@ const submit = () => {
                     >
                     <p v-if="form.errors.xendit_secret_key" class="mt-2 text-sm text-red-600">
                         {{ form.errors.xendit_secret_key }}
+                    </p>
+                </div>
+
+                <div class="border-t border-border pt-6">
+                    <label for="xendit_callback_token" class="font-medium text-ink">Xendit callback token</label>
+                    <p class="mt-1 text-sm text-ink-muted">
+                        Optional but recommended. If set, webhooks must include a matching <code class="font-mono">X-CALLBACK-TOKEN</code>.
+                        <span v-if="xendit_callback_configured" class="font-medium text-green-700">Configured.</span>
+                    </p>
+                    <input
+                        id="xendit_callback_token"
+                        v-model="form.xendit_callback_token"
+                        type="password"
+                        autocomplete="off"
+                        placeholder="Enter Xendit callback token"
+                        class="mt-3 block w-full rounded-lg border-border bg-surface-raised text-sm text-ink placeholder:text-ink-muted focus:border-accent focus:ring-accent"
+                    >
+                    <p v-if="form.errors.xendit_callback_token" class="mt-2 text-sm text-red-600">
+                        {{ form.errors.xendit_callback_token }}
                     </p>
                 </div>
 

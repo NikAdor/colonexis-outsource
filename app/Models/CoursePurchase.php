@@ -7,10 +7,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CoursePurchase extends Model
 {
+    public const STATUS_PENDING = 'pending';
+
+    public const STATUS_PAID = 'paid';
+
     protected $fillable = [
         'user_id',
         'course_id',
         'amount_paid',
+        'status',
+        'payment_method',
+        'provider',
+        'provider_reference',
+        'checkout_url',
     ];
 
     protected function casts(): array

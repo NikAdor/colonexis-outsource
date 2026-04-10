@@ -18,8 +18,8 @@ class CourseController extends Controller
     public function index(Request $request): Response
     {
         $query = Course::query()
-            ->withCount(['sections', 'lessons', 'purchases'])
-            ->withSum('purchases', 'amount_paid');
+            ->withCount(['sections', 'lessons', 'purchases' => fn ($q) => $q->where('status', CoursePurchase::STATUS_PAID)])
+            ->withSum(['purchases as purchases_sum_amount_paid' => fn ($q) => $q->where('status', CoursePurchase::STATUS_PAID)], 'amount_paid');
 
         $search = trim((string) $request->input('search', ''));
         if ($search !== '') {
@@ -49,8 +49,8 @@ class CourseController extends Controller
         $stats = [
             'live_courses' => Course::query()->where('is_published', true)->count(),
             'draft_courses' => Course::query()->where('is_published', false)->count(),
-            'total_enrollments' => CoursePurchase::query()->count(),
-            'total_revenue' => (float) CoursePurchase::query()->sum('amount_paid'),
+            'total_enrollments' => CoursePurchase::query()->where('status', CoursePurchase::STATUS_PAID)->count(),
+            'total_revenue' => (float) CoursePurchase::query()->where('status', CoursePurchase::STATUS_PAID)->sum('amount_paid'),
             'total_clients' => User::query()->where('role', User::ROLE_CLIENT)->count(),
         ];
 

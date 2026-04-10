@@ -36,6 +36,19 @@ const props = defineProps({
 const page = usePage();
 const authUser = computed(() => page.props?.auth?.user ?? null);
 const isAdmin = computed(() => authUser.value?.role === 'admin');
+const isClient = computed(() => authUser.value?.role === 'client');
+
+const clientDisplayName = computed(() => authUser.value?.name?.split(' ')?.[0] ?? 'there');
+
+const clientStats = computed(() => {
+    const inProgress = props.purchasedCourseIds?.length ?? 0;
+    const completed = 0;
+    const certificates = 0;
+
+    return { inProgress, completed, certificates };
+});
+
+const recommendedCourses = computed(() => (props.catalogCourses ?? []).slice(0, 4));
 
 function formatCoursePrice(price) {
     const n = Number(price);
@@ -154,9 +167,10 @@ function revenueChartSvgPaths(chart) {
         <Head title="Admin Dashboard" />
 
         <DashboardLayout title="Analytics">
+            <div class="admin-analytics">
             <!-- Hero stats -->
-            <section class="mb-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-                <div class="flex flex-col gap-2 rounded-lg border-b-4 border-ed-primary bg-ed-surface-container-lowest p-6">
+            <section class="admin-analytics__stats">
+                <div class="admin-analytics__stat-card border-b-4 border-ed-primary">
                     <p class="text-xs font-bold uppercase tracking-widest text-ed-on-surface-variant">Gross revenue</p>
                     <div class="flex items-end gap-2">
                         <h3 class="text-3xl font-black tracking-tight text-ed-primary dark:text-white">
@@ -165,7 +179,7 @@ function revenueChartSvgPaths(chart) {
                         <span class="mb-1 text-xs font-bold text-ed-secondary">Live</span>
                     </div>
                 </div>
-                <div class="flex flex-col gap-2 rounded-lg border-b-4 border-ed-on-primary-container bg-ed-surface-container-lowest p-6">
+                <div class="admin-analytics__stat-card border-b-4 border-ed-on-primary-container">
                     <p class="text-xs font-bold uppercase tracking-widest text-ed-on-surface-variant">Active learners</p>
                     <div class="flex items-end gap-2">
                         <h3 class="text-3xl font-black tracking-tight text-ed-primary dark:text-white">
@@ -174,7 +188,7 @@ function revenueChartSvgPaths(chart) {
                         <span class="mb-1 text-xs font-bold text-ed-secondary">Live</span>
                     </div>
                 </div>
-                <div class="flex flex-col gap-2 rounded-lg border-b-4 border-ed-secondary bg-ed-surface-container-lowest p-6">
+                <div class="admin-analytics__stat-card border-b-4 border-ed-secondary">
                     <p class="text-xs font-bold uppercase tracking-widest text-ed-on-surface-variant">Enrollment rate</p>
                     <div class="flex items-end gap-2">
                         <h3 class="text-3xl font-black tracking-tight text-ed-primary dark:text-white">
@@ -183,7 +197,7 @@ function revenueChartSvgPaths(chart) {
                         <span class="mb-1 text-xs font-bold text-ed-on-surface-variant">Clients w/ course</span>
                     </div>
                 </div>
-                <div class="flex flex-col gap-2 rounded-lg border-b-4 border-ed-tertiary-fixed-dim bg-ed-surface-container-lowest p-6">
+                <div class="admin-analytics__stat-card border-b-4 border-ed-tertiary-fixed-dim">
                     <p class="text-xs font-bold uppercase tracking-widest text-ed-on-surface-variant">Active catalog</p>
                     <div class="flex items-end gap-2">
                         <h3 class="text-3xl font-black tracking-tight text-ed-primary dark:text-white">
@@ -195,8 +209,8 @@ function revenueChartSvgPaths(chart) {
             </section>
 
             <!-- Bento grid -->
-            <section class="grid grid-cols-12 gap-6">
-                <div class="col-span-12 rounded-lg bg-ed-surface-container-lowest p-8 lg:col-span-8">
+            <section class="admin-analytics__bento">
+                <div class="admin-analytics__panel col-span-12 lg:col-span-8">
                     <div class="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                         <div>
                             <h2 class="font-manrope text-xl font-extrabold tracking-tight text-ed-on-surface dark:text-white">
@@ -246,9 +260,7 @@ function revenueChartSvgPaths(chart) {
                     </div>
                 </div>
 
-                <div
-                    class="col-span-12 flex flex-col rounded-lg bg-ed-primary-container p-8 text-white lg:col-span-4 dark:bg-ed-curator-shell"
-                >
+                <div class="admin-analytics__panel-dark col-span-12 flex flex-col lg:col-span-4">
                     <h2 class="mb-2 font-manrope text-xl font-extrabold tracking-tight">Course popularity</h2>
                     <p class="mb-8 text-sm text-ed-on-primary-container">Top performing subjects by enrollment</p>
                     <div class="flex flex-grow flex-col justify-center gap-6">
@@ -270,7 +282,7 @@ function revenueChartSvgPaths(chart) {
                     </div>
                 </div>
 
-                <div class="col-span-12 rounded-lg bg-ed-surface-container-low p-8 lg:col-span-5 dark:bg-white/5">
+                <div class="admin-analytics__panel col-span-12 bg-ed-surface-container-low dark:bg-white/5 lg:col-span-5">
                     <h2 class="mb-8 font-manrope text-xl font-extrabold tracking-tight text-ed-on-surface dark:text-white">
                         Engagement core
                     </h2>
@@ -314,9 +326,7 @@ function revenueChartSvgPaths(chart) {
                     </div>
                 </div>
 
-                <div
-                    class="relative col-span-12 overflow-hidden rounded-lg bg-ed-surface-container-lowest p-8 lg:col-span-7 dark:bg-white/5"
-                >
+                <div class="admin-analytics__panel relative col-span-12 overflow-hidden dark:bg-white/5 lg:col-span-7">
                     <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
                         <div>
                             <h2 class="font-manrope text-xl font-extrabold tracking-tight text-ed-on-surface dark:text-white">
@@ -368,7 +378,7 @@ function revenueChartSvgPaths(chart) {
             </section>
 
             <!-- Recent enrollment feed -->
-            <section class="mt-10 rounded-lg bg-ed-surface-container-lowest p-8 dark:bg-white/5">
+            <section class="admin-analytics__activity">
                 <div class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                     <h2 class="font-manrope text-xl font-extrabold tracking-tight text-ed-on-surface dark:text-white">
                         Recent activity log
@@ -430,6 +440,7 @@ function revenueChartSvgPaths(chart) {
                     </p>
                 </div>
             </section>
+            </div>
 
             <!-- Top courses -->
             <section
@@ -647,14 +658,183 @@ function revenueChartSvgPaths(chart) {
     <template v-else>
         <Head title="Dashboard" />
 
-        <DashboardLayout title="Dashboard">
-            <template #header>
-                <h2 class="text-xl font-semibold leading-tight text-ink">
-                    Dashboard
-                </h2>
-            </template>
+        <DashboardLayout title="My Courses">
+            <!-- Student dashboard (client role) -->
+            <div v-if="isClient" class="student-dashboard">
+                <section class="student-dashboard__welcome">
+                    <h1 class="student-dashboard__title">Welcome back, {{ clientDisplayName }}</h1>
+                    <p class="student-dashboard__subtitle">
+                        Ready to continue your journey through the architectural blueprints? Your courses and recommendations are waiting.
+                    </p>
+                </section>
 
-            <div class="space-y-8">
+                <div class="student-dashboard__grid">
+                    <div class="student-dashboard__stats">
+                        <div class="student-dashboard__stat-card">
+                            <span class="student-dashboard__stat-label">Courses in progress</span>
+                            <div class="student-dashboard__stat-value-row">
+                                <span class="student-dashboard__stat-value">{{ clientStats.inProgress }}</span>
+                                <span class="material-symbols-outlined text-sky-500">pending</span>
+                            </div>
+                        </div>
+                        <div class="student-dashboard__stat-card">
+                            <span class="student-dashboard__stat-label">Completed</span>
+                            <div class="student-dashboard__stat-value-row">
+                                <span class="student-dashboard__stat-value">{{ clientStats.completed }}</span>
+                                <span class="material-symbols-outlined text-green-500">check_circle</span>
+                            </div>
+                        </div>
+                        <div class="student-dashboard__stat-card">
+                            <span class="student-dashboard__stat-label">Certificates earned</span>
+                            <div class="student-dashboard__stat-value-row">
+                                <span class="student-dashboard__stat-value">{{ clientStats.certificates }}</span>
+                                <span class="material-symbols-outlined text-amber-500">workspace_premium</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="student-dashboard__hero">
+                        <div class="student-dashboard__hero-bg" aria-hidden="true" />
+                        <div class="student-dashboard__hero-inner">
+                            <div>
+                                <span class="student-dashboard__hero-tag">Last accessed: Today</span>
+                                <h2 class="student-dashboard__hero-title">Continue learning</h2>
+                                <p class="student-dashboard__hero-subtitle">
+                                    Jump back into your latest lesson or explore new recommendations tailored for you.
+                                </p>
+                            </div>
+                            <div class="student-dashboard__hero-progress">
+                                <div class="student-dashboard__hero-progress-head">
+                                    <span class="text-sm font-bold">Keep going</span>
+                                    <span class="text-xs text-slate-400">Your next lesson is ready</span>
+                                </div>
+                                <div class="student-dashboard__hero-track">
+                                    <div class="student-dashboard__hero-fill" style="width: 65%" />
+                                </div>
+                                <Link :href="route('courses.index')" class="student-dashboard__hero-cta">
+                                    Continue lesson
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="student-dashboard__row2">
+                    <div class="student-dashboard__left">
+                        <section>
+                            <div class="student-dashboard__section-head">
+                                <h3 class="student-dashboard__section-title">Recommended for you</h3>
+                                <Link :href="route('courses.index')" class="student-dashboard__section-link">View library</Link>
+                            </div>
+                            <div class="student-dashboard__recs">
+                                <div
+                                    v-for="course in recommendedCourses"
+                                    :key="course.id"
+                                    class="student-dashboard__course-card group"
+                                >
+                                    <div class="student-dashboard__course-media">
+                                        <img
+                                            v-if="course.featured_image_url"
+                                            :src="course.featured_image_url"
+                                            alt=""
+                                            class="student-dashboard__course-img"
+                                        />
+                                    </div>
+                                    <span class="student-dashboard__course-pill">Recommended</span>
+                                    <h4 class="student-dashboard__course-title">{{ course.title }}</h4>
+                                    <p v-if="course.excerpt" class="student-dashboard__course-desc">{{ course.excerpt }}</p>
+                                    <div class="student-dashboard__course-foot">
+                                        <div class="student-dashboard__course-meta">
+                                            <span class="material-symbols-outlined text-sm text-slate-400">schedule</span>
+                                            <span class="text-[10px] text-slate-500">Self-paced</span>
+                                        </div>
+                                        <Link
+                                            :href="course.slug ? route('courses.show', course.slug) : route('courses.index')"
+                                            class="student-dashboard__course-action"
+                                        >
+                                            View
+                                        </Link>
+                                    </div>
+                                </div>
+                                <p v-if="!recommendedCourses.length" class="text-sm text-slate-500">
+                                    No recommendations yet.
+                                </p>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h3 class="student-dashboard__section-title mb-6">Recent activity</h3>
+                            <div class="student-dashboard__activity">
+                                <div class="student-dashboard__activity-row">
+                                    <div class="student-dashboard__activity-icon bg-sky-50">
+                                        <span class="material-symbols-outlined text-sky-500 text-xl">play_circle</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm text-slate-900"><span class="font-bold">You started</span> a new lesson</p>
+                                        <p class="text-[10px] text-slate-400 mt-1">2 hours ago</p>
+                                    </div>
+                                </div>
+                                <div class="student-dashboard__activity-row">
+                                    <div class="student-dashboard__activity-icon bg-green-50">
+                                        <span class="material-symbols-outlined text-green-500 text-xl">assignment_turned_in</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm text-slate-900"><span class="font-bold">Module completed</span></p>
+                                        <p class="text-[10px] text-slate-400 mt-1">Yesterday</p>
+                                    </div>
+                                </div>
+                                <div class="student-dashboard__activity-row">
+                                    <div class="student-dashboard__activity-icon bg-amber-50">
+                                        <span class="material-symbols-outlined text-amber-500 text-xl">comment</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm text-slate-900"><span class="font-bold">Instructor replied</span> to your question</p>
+                                        <p class="text-[10px] text-slate-400 mt-1">2 days ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="student-dashboard__right">
+                        <div class="student-dashboard__sticky">
+                            <div class="student-dashboard__sessions">
+                                <div class="student-dashboard__sessions-head">
+                                    <span class="material-symbols-outlined text-sky-500">calendar_month</span>
+                                    <h3 class="text-lg font-black text-slate-900">Upcoming live sessions</h3>
+                                </div>
+                                <div class="space-y-6">
+                                    <div class="student-dashboard__session">
+                                        <p class="student-dashboard__session-eyebrow">Live Workshop • Soon</p>
+                                        <h4 class="font-bold text-slate-900">Architectural Review: Banking at Scale</h4>
+                                        <p class="student-dashboard__session-meta">with Marcus Thorne</p>
+                                    </div>
+                                    <div class="student-dashboard__session">
+                                        <p class="student-dashboard__session-eyebrow">Q&amp;A Session • Soon</p>
+                                        <h4 class="font-bold text-slate-900">Microservices: When to Say No</h4>
+                                        <p class="student-dashboard__session-meta">with Elena Rodriguez</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="student-dashboard__sync-btn">Sync to calendar</button>
+                            </div>
+
+                            <div class="student-dashboard__newsletter">
+                                <h4 class="font-bold text-slate-900 mb-2">Blueprint Theory</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                    New editorial updates land here. Keep an eye on the next release.
+                                </p>
+                                <Link :href="route('help')" class="student-dashboard__newsletter-link group">
+                                    Read article
+                                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Staff fallback (non-admin, non-client) -->
+            <div v-else class="space-y-8">
                 <div class="overflow-hidden rounded-xl border border-border bg-surface shadow-sm">
                     <div class="p-6 sm:p-8">
                         <h3 class="font-display text-2xl font-bold text-ink">
@@ -841,17 +1021,4 @@ function revenueChartSvgPaths(chart) {
     </template>
 </template>
 
-<style scoped>
-.material-symbols-outlined {
-    font-family: 'Material Symbols Outlined', sans-serif;
-    font-weight: normal;
-    font-style: normal;
-    font-size: 22px;
-    line-height: 1;
-    font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 24;
-}
-</style>
+<!-- icon font styling is global in app.css -->

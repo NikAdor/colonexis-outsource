@@ -48,6 +48,7 @@ class UserController extends Controller
                 ->get();
             $purchasedCourseIds = auth()->user()
                 ->coursePurchases()
+                ->where('status', CoursePurchase::STATUS_PAID)
                 ->pluck('course_id')
                 ->all();
         }
@@ -72,14 +73,16 @@ class UserController extends Controller
      */
     private function buildAdminOverview(): array
     {
-        $totalRevenue = (float) CoursePurchase::query()->sum('amount_paid');
+        $totalRevenue = (float) CoursePurchase::query()
+            ->where('status', CoursePurchase::STATUS_PAID)
+            ->sum('amount_paid');
         $totalStudents = User::query()->where('role', User::ROLE_CLIENT)->count();
         $enrolledClients = User::query()
             ->where('role', User::ROLE_CLIENT)
             ->whereHas('coursePurchases')
             ->count();
         $activeCourses = Course::query()->where('is_published', true)->count();
-        $purchaseCount = CoursePurchase::query()->count();
+        $purchaseCount = CoursePurchase::query()->where('status', CoursePurchase::STATUS_PAID)->count();
         $enrollmentRate = $totalStudents > 0
             ? round(($enrolledClients / $totalStudents) * 100, 1)
             : 0.0;
@@ -95,6 +98,7 @@ class UserController extends Controller
             $sum = (float) CoursePurchase::query()
                 ->whereYear('created_at', $m->year)
                 ->whereMonth('created_at', $m->month)
+                ->where('status', CoursePurchase::STATUS_PAID)
                 ->sum('amount_paid');
             $monthTotals[$key] = $sum;
         }
@@ -112,6 +116,7 @@ class UserController extends Controller
         }
 
         $recentActivity = CoursePurchase::query()
+            ->where('status', CoursePurchase::STATUS_PAID)
             ->with(['user:id,name', 'course:id,title,slug'])
             ->latest()
             ->limit(5)
@@ -127,8 +132,8 @@ class UserController extends Controller
             ->all();
 
         $topCourses = Course::query()
-            ->withCount('purchases')
-            ->withSum('purchases', 'amount_paid')
+            ->withCount(['purchases' => fn ($q) => $q->where('status', CoursePurchase::STATUS_PAID)])
+            ->withSum(['purchases as purchases_sum_amount_paid' => fn ($q) => $q->where('status', CoursePurchase::STATUS_PAID)], 'amount_paid')
             ->orderByDesc('purchases_count')
             ->orderBy('title')
             ->limit(5)
@@ -151,6 +156,7 @@ class UserController extends Controller
         }, $topCourses);
 
         $recentEnrollments = CoursePurchase::query()
+            ->where('status', CoursePurchase::STATUS_PAID)
             ->with(['user:id,name,email', 'course:id,title'])
             ->latest()
             ->limit(5)

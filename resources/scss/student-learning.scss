@@ -1,0 +1,256 @@
+.learning-shell {
+    @apply min-h-screen bg-ed-surface text-ed-on-surface;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+.learning-shell__topbar {
+    @apply fixed top-0 z-50 flex h-16 w-full items-center justify-between bg-slate-50/80 px-8 backdrop-blur-xl;
+}
+
+.learning-shell__top-left {
+    @apply flex items-center gap-6;
+}
+
+.learning-shell__brand {
+    @apply text-xl font-bold tracking-tighter text-slate-950;
+    font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+}
+
+.learning-shell__toplinks {
+    @apply hidden h-full items-center gap-x-8 md:flex;
+}
+
+.learning-shell__toplink {
+    @apply text-slate-500 font-medium transition-colors hover:text-slate-900;
+}
+
+.learning-shell__toplink.is-active {
+    @apply text-slate-950 border-b-2 border-slate-950 pb-1 font-bold tracking-tight;
+}
+
+.learning-shell__top-progress {
+    @apply hidden max-w-md flex-1 mx-12 lg:block;
+}
+
+.learning-shell__top-progress-head {
+    @apply flex justify-between text-[10px] font-bold uppercase tracking-widest text-ed-on-surface-variant;
+}
+
+.learning-shell__top-progress-track {
+    @apply h-1 w-full overflow-hidden rounded-full bg-ed-surface-container;
+}
+
+.learning-shell__top-progress-fill {
+    @apply h-full bg-ed-primary;
+}
+
+.learning-shell__top-actions {
+    @apply flex items-center gap-4;
+}
+
+.learning-shell__iconbtn {
+    @apply rounded-full p-2 text-slate-950 transition-all active:scale-95 hover:bg-slate-200;
+}
+
+.learning-shell__avatar {
+    @apply h-8 w-8 rounded-full bg-ed-surface-container-high ring-1 ring-ed-outline-variant/20;
+}
+
+.learning-shell__body {
+    @apply flex pt-16 min-h-[calc(100vh-64px)];
+}
+
+.learning-shell__sidebar {
+    @apply hidden md:flex fixed left-0 top-16 h-full w-72 flex-col gap-y-4 bg-slate-100 p-6;
+}
+
+.learning-shell__main {
+    @apply flex-1 bg-ed-surface p-8;
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    .learning-shell__main {
+        margin-left: 18rem;
+    }
+}
+
+.learning-shell__mobile-nav {
+    @apply fixed bottom-0 left-0 z-50 flex w-full justify-around bg-slate-50 p-4 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] md:hidden;
+}
+
+.learning-shell__mobile-item {
+    @apply flex flex-col items-center gap-1 text-slate-400;
+}
+
+.learning-shell__mobile-item.is-active {
+    @apply text-slate-950;
+}
+
+.learning-shell__mobile-item span:last-child {
+    @apply text-[10px] font-bold;
+}
+
+.learning-sidebar__head {
+    @apply mb-4;
+}
+
+.learning-sidebar__title {
+    @apply text-sm font-semibold text-slate-950;
+}
+
+.learning-sidebar__subtitle {
+    @apply text-xs text-slate-600;
+}
+
+.learning-sidebar__nav {
+    @apply flex flex-col gap-1;
+}
+
+.learning-sidebar__link {
+    @apply flex items-center gap-3 rounded-md px-3 py-2 text-slate-600 transition-all hover:bg-slate-200 active:translate-x-1;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-weight: 600;
+}
+
+.learning-sidebar__link.is-active {
+    @apply bg-white text-slate-950 shadow-sm;
+}
+
+.learning-sidebar__current {
+    @apply mt-8 border-t border-slate-200 pt-6;
+}
+
+.learning-sidebar__current-card {
+    @apply rounded-lg bg-ed-surface-container-low p-3;
+}
+
+.learning-sidebar__current-dot {
+    @apply mb-2 h-2 w-2 rounded-full bg-green-500;
+}
+
+.learning-sidebar__current-label {
+    @apply text-[10px] font-bold uppercase tracking-wider opacity-60;
+}
+
+.learning-sidebar__current-title {
+    @apply mt-1 text-xs font-bold leading-tight;
+}
+
+.learning-sidebar__cta {
+    @apply mt-auto rounded-md bg-ed-primary px-4 py-3 text-center text-sm font-bold text-white transition-opacity hover:opacity-90;
+}
+
+.learning-page__inner {
+    @apply mx-auto max-w-6xl space-y-8;
+}
+
+.learning-player__frame {
+    @apply relative aspect-video overflow-hidden rounded-lg bg-black shadow-2xl;
+}
+
+.learning-player__iframe {
+    @apply absolute inset-0 h-full w-full;
+}
+
+.learning-player__img {
+    @apply h-full w-full object-cover;
+}
+
+.learning-player__placeholder {
+    @apply absolute inset-0 flex flex-col items-center justify-center;
+}
+
+.learning-lesson-head {
+    @apply flex flex-col gap-4 border-b border-ed-surface-container pb-6 md:flex-row md:items-center md:justify-between;
+}
+
+.learning-lesson-head__eyebrow {
+    @apply mb-1 block text-xs font-bold uppercase tracking-[0.2em] text-ed-on-tertiary-container;
+}
+
+.learning-lesson-head__title {
+    @apply text-4xl font-extrabold tracking-tighter text-ed-primary;
+    font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+}
+
+.learning-lesson-head__meta {
+    @apply mt-2 text-sm text-ed-on-surface-variant;
+}
+
+.learning-lesson-head__actions {
+    @apply flex gap-3;
+}
+
+.learning-lesson-head__btn {
+    @apply inline-flex items-center gap-2 rounded px-4 py-2 text-sm font-semibold bg-ed-primary text-white transition-opacity hover:opacity-90;
+}
+
+.learning-lesson-head__btn.is-ghost {
+    @apply bg-ed-surface-container-low text-ed-on-surface hover:bg-ed-surface-container-high;
+}
+
+.learning-tabs__bar {
+    @apply mb-8 flex gap-8 border-b border-ed-surface-container;
+}
+
+.learning-tabs__tab {
+    @apply pb-4 text-sm font-semibold text-ed-on-surface-variant transition-all hover:text-ed-primary;
+}
+
+.learning-tabs__tab.is-active {
+    @apply border-b-2 border-ed-primary text-ed-primary font-bold;
+}
+
+.learning-tabs__grid {
+    @apply grid grid-cols-1 gap-12 lg:grid-cols-3;
+}
+
+.learning-tabs__main {
+    @apply lg:col-span-2 space-y-6;
+}
+
+.learning-prose {
+    @apply text-ed-on-surface-variant leading-relaxed;
+}
+
+.learning-tabs__side {
+    @apply space-y-8;
+}
+
+.learning-modules {
+    @apply rounded-lg bg-ed-surface-container-low p-6;
+}
+
+.learning-modules__title {
+    @apply text-sm font-bold uppercase tracking-wider text-ed-on-surface-variant;
+}
+
+.learning-modules__list {
+    @apply mt-4 space-y-1;
+}
+
+.learning-modules__section {
+    @apply mt-3 text-xs font-bold text-ed-outline;
+}
+
+.learning-modules__row {
+    @apply flex items-center justify-between rounded px-2 py-2 text-xs font-semibold text-ed-on-surface-variant transition-colors hover:bg-ed-surface-container-high;
+}
+
+.learning-modules__row.is-active {
+    @apply bg-ed-surface-container-high text-ed-primary font-bold;
+}
+
+.learning-modules__num {
+    @apply opacity-60;
+}
+
+.learning-modules__name {
+    @apply flex-1 px-3 truncate;
+}
+
+.learning-modules__icon {
+    @apply text-[16px];
+}
+

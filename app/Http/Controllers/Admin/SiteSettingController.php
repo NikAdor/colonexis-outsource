@@ -18,6 +18,7 @@ class SiteSettingController extends Controller
             'courses_enabled' => SiteSetting::bool('courses_enabled'),
             'payment_method' => SiteSetting::string('payment_method', SiteSetting::PAYMENT_XENDIT),
             'xendit_key_configured' => (bool) SiteSetting::string('xendit_secret_key'),
+            'xendit_callback_configured' => (bool) SiteSetting::string(SiteSetting::XENDIT_CALLBACK_TOKEN_KEY),
             'paymongo_key_configured' => (bool) SiteSetting::string('paymongo_secret_key'),
         ]);
     }
@@ -29,6 +30,7 @@ class SiteSettingController extends Controller
             'courses_enabled' => 'sometimes|boolean',
             'payment_method' => 'required|in:xendit,paymongo',
             'xendit_secret_key' => 'nullable|string|max:255',
+            'xendit_callback_token' => 'nullable|string|max:255',
             'paymongo_secret_key' => 'nullable|string|max:255',
         ]);
 
@@ -37,6 +39,9 @@ class SiteSettingController extends Controller
         SiteSetting::setString('payment_method', $request->string('payment_method')->toString());
         if ($request->filled('xendit_secret_key')) {
             SiteSetting::setString('xendit_secret_key', $request->string('xendit_secret_key')->toString());
+        }
+        if ($request->filled('xendit_callback_token')) {
+            SiteSetting::setString(SiteSetting::XENDIT_CALLBACK_TOKEN_KEY, $request->string('xendit_callback_token')->toString());
         }
         if ($request->filled('paymongo_secret_key')) {
             SiteSetting::setString('paymongo_secret_key', $request->string('paymongo_secret_key')->toString());

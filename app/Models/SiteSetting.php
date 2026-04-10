@@ -11,6 +11,11 @@ class SiteSetting extends Model
 
     public const PAYMENT_PAYMONGO = 'paymongo';
 
+    /**
+     * If set, used to verify Xendit webhooks via `X-CALLBACK-TOKEN`.
+     */
+    public const XENDIT_CALLBACK_TOKEN_KEY = 'xendit_callback_token';
+
     protected $fillable = [
         'key',
         'value',

@@ -1,4 +1,9 @@
 import '../css/app.css';
+import '../scss/admin-shell.scss';
+import '../scss/admin-analytics.scss';
+import '../scss/student-shell.scss';
+import '../scss/student-dashboard.scss';
+import '../scss/student-learning.scss';
 import './bootstrap';
 
 import { createInertiaApp } from '@inertiajs/vue3';

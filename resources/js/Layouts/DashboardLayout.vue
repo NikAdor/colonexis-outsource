@@ -15,6 +15,7 @@ const sidebarOpen = ref(false);
 
 const authUser = computed(() => page.props?.auth?.user ?? null);
 const appName = computed(() => page.props?.appName ?? 'Colonexis');
+const isClient = computed(() => authUser.value?.role === 'client');
 
 const roleLabel = computed(() => {
     const r = authUser.value?.role;
@@ -81,15 +82,11 @@ function isTopNavActive(match) {
 }
 
 function sidebarNavClass(active) {
-    return active
-        ? 'flex items-center gap-3 py-3 pl-8 pr-4 bg-white text-ed-curator-accent shadow-sm dark:bg-ed-curator-accent dark:text-white rounded-r-full font-manrope font-semibold text-sm transition-transform duration-200'
-        : 'flex items-center gap-3 py-3 px-8 text-slate-600 hover:bg-slate-200/50 dark:text-slate-400 dark:hover:bg-white/5 font-manrope font-semibold text-sm transition-transform duration-200 hover:translate-x-1';
+    return ['admin-sidebar-link', { 'is-active': active }];
 }
 
 function topNavClass(active) {
-    return active
-        ? 'border-b-2 border-ed-curator-accent pb-1 font-bold text-ed-curator-accent transition-all duration-300 dark:border-white dark:text-white'
-        : 'font-medium text-slate-500 transition-all duration-300 hover:text-ed-curator-accent dark:text-slate-400 dark:hover:text-white';
+    return ['admin-top-link', { 'is-active': active }];
 }
 
 const topNavItems = computed(() => {
@@ -131,33 +128,107 @@ const userInitials = computed(() => {
 </script>
 
 <template>
-    <div class="min-h-screen bg-ed-surface font-inter text-ed-on-surface antialiased">
+    <!-- Student shell (client role) -->
+    <div v-if="isClient" class="student-shell">
+        <header class="student-shell__topbar">
+            <div class="flex items-center gap-8">
+                <Link :href="route('dashboard')" class="student-shell__brand">
+                    {{ appName }}
+                </Link>
+                <div class="student-shell__search-wrap">
+                    <span class="material-symbols-outlined student-shell__search-icon">search</span>
+                    <input class="student-shell__search-input" placeholder="Search architecture..." type="text" />
+                </div>
+            </div>
+            <div class="student-shell__top-actions">
+                <button type="button" class="student-shell__notif-btn" aria-label="Notifications">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="student-shell__notif-dot" aria-hidden="true" />
+                </button>
+                <div class="student-shell__profile">
+                    <span class="student-shell__profile-label">Profile</span>
+                    <Link :href="route('profile.edit')" class="student-shell__avatar" :title="authUser?.name">
+                        <span class="sr-only">{{ authUser?.name }}</span>
+                    </Link>
+                </div>
+            </div>
+        </header>
+
+        <aside class="student-shell__sidebar" aria-label="Student navigation">
+            <div class="student-shell__sidebar-head">
+                <h2 class="student-shell__sidebar-title">Architect Academy</h2>
+                <p class="student-shell__sidebar-subtitle">Technical Curator</p>
+            </div>
+
+            <nav class="student-shell__nav">
+                <Link
+                    :href="route('dashboard')"
+                    class="student-shell__nav-link"
+                    :class="{ 'is-active': isActive('dashboard') }"
+                >
+                    <span class="material-symbols-outlined">school</span>
+                    <span class="student-shell__nav-text">My Courses</span>
+                </Link>
+                <Link :href="route('profile.edit')" class="student-shell__nav-link" :class="{ 'is-active': isActive('profile.edit') }">
+                    <span class="material-symbols-outlined">person</span>
+                    <span class="student-shell__nav-text">Profile</span>
+                </Link>
+                <Link :href="route('help')" class="student-shell__nav-link" :class="{ 'is-active': isActive('help') }">
+                    <span class="material-symbols-outlined">help</span>
+                    <span class="student-shell__nav-text">Help Center</span>
+                </Link>
+            </nav>
+
+            <div class="student-shell__sidebar-footer">
+                <Link :href="route('courses.index')" class="student-shell__primary-btn">
+                    <span class="material-symbols-outlined text-sm">add</span>
+                    New Course
+                </Link>
+                <Link :href="route('help')" class="student-shell__help-link">
+                    <span class="material-symbols-outlined">help</span>
+                    <span class="student-shell__nav-text">Help Center</span>
+                </Link>
+                <Link :href="route('logout')" method="post" as="button" class="student-shell__help-link">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span class="student-shell__nav-text">Logout</span>
+                </Link>
+            </div>
+        </aside>
+
+        <main class="student-shell__main">
+            <div class="student-shell__container">
+                <slot />
+            </div>
+        </main>
+    </div>
+
+    <div v-else class="admin-shell">
         <button
             v-show="sidebarOpen"
             type="button"
-            class="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-sm lg:hidden"
+            class="admin-shell__overlay"
             aria-label="Close menu"
             @click="sidebarOpen = false"
         />
 
         <aside
             id="app-sidebar"
-            class="fixed inset-y-0 left-0 z-50 flex h-screen w-64 flex-col gap-8 bg-ed-surface-container-low py-6 transition-transform duration-200 ease-out dark:bg-ed-primary-container lg:translate-x-0"
+            class="admin-shell__sidebar"
             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
         >
-            <div class="px-8">
+            <div class="admin-shell__brand-wrap">
                 <Link :href="route('dashboard')" class="block" @click="sidebarOpen = false">
                     <ColonexisLogo img-class="h-8 w-auto max-w-[160px] object-contain object-left dark:brightness-0 dark:invert" />
                 </Link>
-                <h1 class="mt-4 text-lg font-black tracking-widest text-ed-curator-accent dark:text-ed-surface-container-low">
+                <h1 class="admin-shell__brand-title">
                     {{ shellTitle }}
                 </h1>
-                <p class="text-[10px] font-bold uppercase tracking-widest text-ed-on-surface-variant/60">
+                <p class="admin-shell__brand-subtitle">
                     {{ roleLabel }}
                 </p>
             </div>
 
-            <nav class="flex flex-1 flex-col gap-1 overflow-y-auto pr-4" aria-label="Main navigation">
+            <nav class="admin-shell__nav" aria-label="Main navigation">
                 <Link
                     :href="route('dashboard')"
                     :class="sidebarNavClass(isActive('dashboard'))"
@@ -194,7 +265,7 @@ const userInitials = computed(() => {
                 </Link>
 
                 <template v-if="showAdminCatalog">
-                    <p class="mb-1 mt-6 px-8 text-[10px] font-bold uppercase tracking-widest text-ed-on-surface-variant/50">
+                    <p class="admin-shell__nav-label">
                         Catalog admin
                     </p>
                     <Link
@@ -223,7 +294,7 @@ const userInitials = computed(() => {
                     </Link>
                 </template>
 
-                <p class="mb-1 mt-6 px-8 text-[10px] font-bold uppercase tracking-widest text-ed-on-surface-variant/50">
+                <p class="admin-shell__nav-label">
                     Support
                 </p>
                 <Link
@@ -236,10 +307,10 @@ const userInitials = computed(() => {
                 </Link>
             </nav>
 
-            <div class="mt-auto flex flex-col gap-4 px-8">
+            <div class="admin-shell__footer">
                 <Link
                     :href="shellCta.href"
-                    class="flex w-full items-center justify-center gap-2 rounded-lg bg-ed-primary-container py-3 text-xs font-bold text-white transition-opacity active:opacity-80 dark:bg-ed-curator-accent"
+                    class="admin-shell__cta"
                     @click="sidebarOpen = false"
                 >
                     {{ shellCta.label }}
@@ -248,7 +319,7 @@ const userInitials = computed(() => {
                     :href="route('logout')"
                     method="post"
                     as="button"
-                    class="flex items-center gap-3 py-2 text-left font-manrope text-sm font-semibold text-slate-600 dark:text-slate-400"
+                    class="admin-shell__logout"
                     @click="sidebarOpen = false"
                 >
                     <span class="material-symbols-outlined text-[22px] leading-none">logout</span>
@@ -257,13 +328,13 @@ const userInitials = computed(() => {
             </div>
         </aside>
 
-        <div class="flex min-h-screen min-w-0 flex-1 flex-col lg:ml-64">
+        <div class="admin-shell__content">
             <header
-                class="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-ed-outline-variant/15 bg-ed-surface/90 px-4 backdrop-blur-xl dark:border-white/10 dark:bg-ed-curator-accent/90 lg:hidden"
+                class="admin-shell__mobile-header"
             >
                 <button
                     type="button"
-                    class="inline-flex items-center justify-center rounded-lg p-2 text-ed-on-surface-variant transition-colors hover:bg-ed-surface-container dark:text-slate-300 dark:hover:bg-white/10"
+                    class="admin-shell__mobile-menu-btn"
                     aria-controls="app-sidebar"
                     :aria-expanded="sidebarOpen"
                     @click="sidebarOpen = true"
@@ -271,7 +342,7 @@ const userInitials = computed(() => {
                     <span class="sr-only">Open menu</span>
                     <span class="material-symbols-outlined text-[26px] leading-none">menu</span>
                 </button>
-                <span class="min-w-0 flex-1 truncate font-manrope text-lg font-bold tracking-tight text-ed-curator-accent dark:text-ed-surface">
+                <span class="admin-shell__mobile-title">
                     {{ title }}
                 </span>
                 <div v-if="$slots.mobileToolbar" class="shrink-0">
@@ -280,10 +351,10 @@ const userInitials = computed(() => {
             </header>
 
             <header
-                class="sticky top-0 z-40 hidden h-20 w-full items-center justify-between border-b border-ed-outline-variant/10 bg-ed-surface/80 px-8 font-manrope backdrop-blur-xl dark:border-white/10 dark:bg-ed-curator-accent/85 lg:flex"
+                class="admin-shell__desktop-header"
             >
                 <div class="flex items-center gap-8">
-                    <span class="text-xl font-bold tracking-tighter text-ed-curator-accent dark:text-ed-surface">
+                    <span class="admin-shell__desktop-appname">
                         {{ appName }}
                     </span>
                     <nav class="hidden gap-6 md:flex" aria-label="Section">
@@ -307,7 +378,7 @@ const userInitials = computed(() => {
                     </Link>
                     <Link
                         :href="route('profile.edit')"
-                        class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-ed-outline-variant/20 bg-ed-surface-container-high text-sm font-bold text-ed-curator-accent dark:border-white/20 dark:bg-white/10 dark:text-white"
+                        class="admin-shell__avatar"
                         :title="authUser?.name"
                     >
                         {{ userInitials }}
@@ -316,12 +387,12 @@ const userInitials = computed(() => {
             </header>
 
             <main class="flex-1">
-                <div v-if="$slots.header" class="hidden border-b border-ed-outline-variant/10 bg-ed-surface dark:border-white/10 lg:block">
-                    <div class="px-8 py-6">
+                <div v-if="$slots.header" class="admin-shell__slot-header">
+                    <div class="admin-shell__slot-header-inner">
                         <slot name="header" />
                     </div>
                 </div>
-                <div class="mx-auto w-full max-w-[1600px] px-4 py-8 sm:px-6 lg:px-10 lg:py-10">
+                <div class="admin-shell__main-inner">
                     <div
                         v-if="flashSuccess"
                         class="mb-6 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800 dark:border-green-900 dark:bg-green-950/40 dark:text-green-100"

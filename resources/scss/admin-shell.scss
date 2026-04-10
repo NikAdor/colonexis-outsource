@@ -1,0 +1,99 @@
+.admin-shell {
+    @apply min-h-screen bg-ed-surface font-inter text-ed-on-surface antialiased;
+}
+
+.admin-shell__overlay {
+    @apply fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-sm lg:hidden;
+}
+
+.admin-shell__sidebar {
+    @apply fixed inset-y-0 left-0 z-50 flex h-screen w-64 flex-col gap-8 bg-ed-surface-container-low py-6 transition-transform duration-200 ease-out dark:bg-ed-primary-container lg:translate-x-0;
+}
+
+.admin-shell__brand-wrap {
+    @apply px-8;
+}
+
+.admin-shell__brand-title {
+    @apply mt-4 text-lg font-black tracking-widest text-ed-curator-accent dark:text-ed-surface-container-low;
+}
+
+.admin-shell__brand-subtitle {
+    @apply text-[10px] font-bold uppercase tracking-widest text-ed-on-surface-variant/60;
+}
+
+.admin-shell__nav {
+    @apply flex flex-1 flex-col gap-1 overflow-y-auto pr-4;
+}
+
+.admin-shell__nav-label {
+    @apply mb-1 mt-6 px-8 text-[10px] font-bold uppercase tracking-widest text-ed-on-surface-variant/50;
+}
+
+.admin-sidebar-link {
+    @apply flex items-center gap-3 py-3 px-8 font-manrope text-sm font-semibold text-slate-600 transition-transform duration-200 hover:translate-x-1 hover:bg-slate-200/50 dark:text-slate-400 dark:hover:bg-white/5;
+}
+
+.admin-sidebar-link.is-active {
+    @apply rounded-r-full bg-white pl-8 pr-4 text-ed-curator-accent shadow-sm dark:bg-ed-curator-accent dark:text-white;
+}
+
+.admin-shell__footer {
+    @apply mt-auto flex flex-col gap-4 px-8;
+}
+
+.admin-shell__cta {
+    @apply flex w-full items-center justify-center gap-2 rounded-lg bg-ed-primary-container py-3 text-xs font-bold text-white transition-opacity active:opacity-80 dark:bg-ed-curator-accent;
+}
+
+.admin-shell__logout {
+    @apply flex items-center gap-3 py-2 text-left font-manrope text-sm font-semibold text-slate-600 dark:text-slate-400;
+}
+
+.admin-shell__content {
+    @apply flex min-h-screen min-w-0 flex-1 flex-col lg:ml-64;
+}
+
+.admin-shell__mobile-header {
+    @apply sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-ed-outline-variant/15 bg-ed-surface/90 px-4 backdrop-blur-xl dark:border-white/10 dark:bg-ed-curator-accent/90 lg:hidden;
+}
+
+.admin-shell__mobile-menu-btn {
+    @apply inline-flex items-center justify-center rounded-lg p-2 text-ed-on-surface-variant transition-colors hover:bg-ed-surface-container dark:text-slate-300 dark:hover:bg-white/10;
+}
+
+.admin-shell__mobile-title {
+    @apply min-w-0 flex-1 truncate font-manrope text-lg font-bold tracking-tight text-ed-curator-accent dark:text-ed-surface;
+}
+
+.admin-shell__desktop-header {
+    @apply sticky top-0 z-40 hidden h-20 w-full items-center justify-between border-b border-ed-outline-variant/10 bg-ed-surface/80 px-8 font-manrope backdrop-blur-xl dark:border-white/10 dark:bg-ed-curator-accent/85 lg:flex;
+}
+
+.admin-shell__desktop-appname {
+    @apply text-xl font-bold tracking-tighter text-ed-curator-accent dark:text-ed-surface;
+}
+
+.admin-top-link {
+    @apply font-medium text-slate-500 transition-all duration-300 hover:text-ed-curator-accent dark:text-slate-400 dark:hover:text-white;
+}
+
+.admin-top-link.is-active {
+    @apply border-b-2 border-ed-curator-accent pb-1 font-bold text-ed-curator-accent dark:border-white dark:text-white;
+}
+
+.admin-shell__avatar {
+    @apply flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-ed-outline-variant/20 bg-ed-surface-container-high text-sm font-bold text-ed-curator-accent dark:border-white/20 dark:bg-white/10 dark:text-white;
+}
+
+.admin-shell__slot-header {
+    @apply hidden border-b border-ed-outline-variant/10 bg-ed-surface dark:border-white/10 lg:block;
+}
+
+.admin-shell__slot-header-inner {
+    @apply px-8 py-6;
+}
+
+.admin-shell__main-inner {
+    @apply mx-auto w-full max-w-[1600px] px-4 py-8 sm:px-6 lg:px-10 lg:py-10;
+}
