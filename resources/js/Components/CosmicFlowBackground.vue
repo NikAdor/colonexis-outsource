@@ -71,7 +71,7 @@ function makeParticle(x, y, fromBlob = false) {
         life: fromBlob ? rand(0.7, 1) : 1,
         decay: fromBlob ? rand(0.0008, 0.002) : rand(0.003, 0.009),
         size: fromBlob ? rand(0.6, 2.2) : rand(0.8, 2.8),
-        hue: rand(38, 52),
+        hue: rand(195, 210),
         sat: rand(88, 100),
     };
 }
@@ -197,7 +197,7 @@ function tick() {
         if (repulsors[i].t < 0.02) repulsors.splice(i, 1);
     }
 
-    ctx.fillStyle = 'rgba(2, 3, 6, 0.22)';
+    ctx.fillStyle = 'rgba(4, 18, 40, 0.22)';
     ctx.fillRect(0, 0, w, h);
 
     ctx.globalCompositeOperation = 'lighter';
@@ -237,7 +237,7 @@ function tick() {
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 3);
         g.addColorStop(0, `hsla(${p.hue}, ${p.sat}%, 92%, ${alpha * 0.9})`);
         g.addColorStop(0.35, `hsla(${p.hue - 4}, ${p.sat}%, 62%, ${alpha * 0.45})`);
-        g.addColorStop(1, 'hsla(30, 90%, 50%, 0)');
+        g.addColorStop(1, 'hsla(199, 90%, 52%, 0)');
         ctx.fillStyle = g;
         ctx.beginPath();
         ctx.arc(p.x, p.y, r * 3, 0, Math.PI * 2);

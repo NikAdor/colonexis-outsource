@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -32,8 +33,18 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
+            'appName' => config('app.name', 'Colonexis'),
             'auth' => [
                 'user' => $request->user(),
+            ],
+            'flash' => [
+                'success' => fn () => $request->session()->get('success'),
+                'info' => fn () => $request->session()->get('info'),
+            ],
+            'site' => [
+                'courses_enabled' => SiteSetting::bool('courses_enabled'),
+                'events_enabled' => SiteSetting::bool('events_enabled'),
+                'payment_method' => SiteSetting::string('payment_method', SiteSetting::PAYMENT_XENDIT),
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),

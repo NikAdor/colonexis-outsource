@@ -16,6 +16,7 @@ class AdminUserSeeder extends Seeder
                 'name' => 'Admin User',
                 'password' => Hash::make('password'),
                 'role' => User::ROLE_ADMIN,
+                'email_verified_at' => now(),
             ]
         );
 
@@ -25,15 +26,17 @@ class AdminUserSeeder extends Seeder
                 'name' => 'Staff User',
                 'password' => Hash::make('password'),
                 'role' => User::ROLE_STAFF,
+                'email_verified_at' => now(),
             ]
         );
 
         User::updateOrCreate(
-            ['email' => 'user@colonexis.com'],
+            ['email' => 'client@colonexis.com'],
             [
-                'name' => 'Regular User',
+                'name' => 'Client User',
                 'password' => Hash::make('password'),
-                'role' => User::ROLE_USER,
+                'role' => User::ROLE_CLIENT,
+                'email_verified_at' => now(),
             ]
         );
     }

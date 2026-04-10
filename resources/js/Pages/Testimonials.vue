@@ -2,8 +2,7 @@
 import { Head, Link } from '@inertiajs/vue3';
 import { onMounted, onUnmounted, ref } from 'vue';
 import CosmicFlowBackground from '@/Components/CosmicFlowBackground.vue';
-import SiteFooter from '@/Components/SiteFooter.vue';
-import SiteHeader from '@/Components/SiteHeader.vue';
+import MarketingLayout from '@/Components/MarketingLayout.vue';
 
 defineProps({
     canLogin: { type: Boolean, default: false },
@@ -107,28 +106,27 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <Head title="Testimonials" />
-    <div class="min-h-screen bg-white text-gray-900">
-        <SiteHeader :can-login="canLogin" :can-register="canRegister" variant="page" />
-
-        <section ref="heroSection" class="relative min-h-[72vh] flex items-center pt-24 overflow-hidden bg-[#020308]">
+    <MarketingLayout :can-login="canLogin" :can-register="canRegister">
+        <Head title="Testimonials" />
+        <div class="min-h-screen bg-paper text-ink">
+        <section ref="heroSection" class="relative flex min-h-[72vh] items-center overflow-hidden bg-hero-bg pt-6">
             <CosmicFlowBackground :container="heroSection" class="z-0" />
-            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-[#020308]/95 via-[#020308]/60 to-transparent" />
-            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-[#020308]/85 via-transparent to-[#020308]/35" />
-            <div class="relative z-10 max-w-7xl mx-auto px-6 py-20 w-full">
+            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-hero-bg/95 via-hero-bg/60 to-transparent" />
+            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-hero-bg/85 via-transparent to-hero-bg/35" />
+            <div class="relative z-10 mx-auto w-full max-w-7xl px-6 py-20">
                 <div v-motion :initial="{ opacity: 0, y: 24 }" :visibleOnce="{ opacity: 1, y: 0 }" class="max-w-3xl">
-                    <p class="text-sm font-medium tracking-wide text-[#38BDF8]/90 uppercase">Social proof</p>
-                    <h1 class="mt-4 text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">Testimonials</h1>
-                    <p class="mt-6 text-xl text-white/70 max-w-2xl leading-relaxed">
+                    <p class="text-sm font-medium uppercase tracking-wide text-accent">Social proof</p>
+                    <h1 class="mt-4 text-5xl font-bold leading-tight text-hero-ink md:text-6xl lg:text-7xl">Testimonials</h1>
+                    <p class="mt-6 max-w-2xl text-xl leading-relaxed text-hero-muted">
                         Partners who value clarity, craft, and dependable delivery.
                     </p>
                 </div>
             </div>
         </section>
 
-        <section ref="statsSection" class="py-24 bg-[#F1F1F1]">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="flex flex-col sm:flex-row sm:flex-wrap gap-10 justify-between">
+        <section ref="statsSection" class="bg-surface-raised py-24">
+            <div class="mx-auto max-w-7xl px-6">
+                <div class="flex flex-col justify-between gap-10 sm:flex-row sm:flex-wrap">
                     <div
                         v-for="(stat, index) in stats"
                         :key="stat.label"
@@ -136,19 +134,19 @@ onUnmounted(() => {
                         :initial="{ opacity: 0, y: 18 }"
                         :visibleOnce="{ opacity: 1, y: 0 }"
                         :delay="index * 0.06"
-                        class="text-center flex-1 min-w-[140px]"
+                        class="min-w-[140px] flex-1 text-center"
                     >
-                        <div class="text-5xl md:text-6xl font-bold text-[#38BDF8] mb-2">
+                        <div class="mb-2 text-5xl font-bold text-accent md:text-6xl">
                             {{ animatedStats[index]?.value }}{{ stat.suffix }}
                         </div>
-                        <div class="text-gray-600 text-lg">{{ stat.label }}</div>
+                        <div class="text-lg text-ink-muted">{{ stat.label }}</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-6">
+        <section class="bg-surface py-24">
+            <div class="mx-auto max-w-7xl px-6">
                 <div class="flex flex-col gap-8">
                     <div
                         v-for="(testimonial, index) in testimonials"
@@ -157,19 +155,19 @@ onUnmounted(() => {
                         :initial="{ opacity: 0, y: 22 }"
                         :visibleOnce="{ opacity: 1, y: 0 }"
                         :delay="index * 0.06"
-                        class="flex flex-col md:flex-row gap-6 md:gap-10 items-start p-8 rounded-2xl border border-gray-100 bg-[#F1F1F1]/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+                        class="flex flex-col items-start gap-6 rounded-2xl border border-border bg-surface-raised/50 p-8 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg md:flex-row md:gap-10"
                     >
                         <img
                             :src="testimonial.image"
                             :alt="testimonial.author"
-                            class="w-16 h-16 rounded-full object-cover shrink-0 border border-white shadow-sm"
+                            class="h-16 w-16 shrink-0 rounded-full border border-border object-cover shadow-sm"
                         />
                         <div class="flex-1">
-                            <div class="flex gap-1 mb-4">
+                            <div class="mb-4 flex gap-1">
                                 <svg
                                     v-for="i in 5"
                                     :key="i"
-                                    class="w-5 h-5 text-[#38BDF8]"
+                                    class="h-5 w-5 text-accent"
                                     fill="currentColor"
                                     viewBox="0 0 20 20"
                                 >
@@ -178,10 +176,10 @@ onUnmounted(() => {
                                     />
                                 </svg>
                             </div>
-                            <p class="text-gray-700 text-lg leading-relaxed">“{{ testimonial.quote }}”</p>
-                            <div class="mt-6 pt-6 border-t border-gray-200">
-                                <div class="font-semibold text-[#041228]">{{ testimonial.author }}</div>
-                                <div class="text-sm text-gray-500">{{ testimonial.role }}</div>
+                            <p class="text-lg leading-relaxed text-ink-muted">“{{ testimonial.quote }}”</p>
+                            <div class="mt-6 border-t border-border pt-6">
+                                <div class="font-semibold text-ink">{{ testimonial.author }}</div>
+                                <div class="text-sm text-ink-muted">{{ testimonial.role }}</div>
                             </div>
                         </div>
                     </div>
@@ -189,17 +187,17 @@ onUnmounted(() => {
             </div>
         </section>
 
-        <section class="py-24 bg-[#F1F1F1]">
-            <div class="max-w-4xl mx-auto px-6 text-center">
-                <h2 v-motion :initial="{ opacity: 0, y: 20 }" :visibleOnce="{ opacity: 1, y: 0 }" class="text-4xl font-bold text-[#041228] mb-6">
+        <section class="bg-surface-raised py-24">
+            <div class="mx-auto max-w-4xl px-6 text-center">
+                <h2 v-motion :initial="{ opacity: 0, y: 20 }" :visibleOnce="{ opacity: 1, y: 0 }" class="mb-6 text-4xl font-bold text-ink">
                     Become the next story
                 </h2>
-                <p v-motion :initial="{ opacity: 0, y: 20 }" :visibleOnce="{ opacity: 1, y: 0 }" :delay="0.08" class="text-gray-600 text-lg mb-8">
+                <p v-motion :initial="{ opacity: 0, y: 20 }" :visibleOnce="{ opacity: 1, y: 0 }" :delay="0.08" class="mb-8 text-lg text-ink-muted">
                     Share your timeline and goals—we’ll respond with a practical plan.
                 </p>
                 <Link
                     :href="route('contact')"
-                    class="inline-flex items-center gap-2 px-8 py-4 bg-[#38BDF8] text-[#041228] font-semibold rounded-full hover:bg-[#19427D] hover:text-white transition-all hover:-translate-y-0.5 shadow-md"
+                    class="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 font-semibold text-accent-fg shadow-md transition-all hover:-translate-y-0.5 hover:bg-accent-hover"
                 >
                     Start a conversation
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -209,6 +207,6 @@ onUnmounted(() => {
             </div>
         </section>
 
-        <SiteFooter />
-    </div>
+        </div>
+    </MarketingLayout>
 </template>

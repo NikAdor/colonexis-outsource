@@ -2,8 +2,7 @@
 import { computed, ref } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import CosmicFlowBackground from '@/Components/CosmicFlowBackground.vue';
-import SiteFooter from '@/Components/SiteFooter.vue';
-import SiteHeader from '@/Components/SiteHeader.vue';
+import MarketingLayout from '@/Components/MarketingLayout.vue';
 
 defineProps({
     canLogin: { type: Boolean, default: false },
@@ -65,27 +64,26 @@ const process = [
 </script>
 
 <template>
-    <Head title="Services" />
-    <div class="min-h-screen bg-white text-gray-900">
-        <SiteHeader :can-login="canLogin" :can-register="canRegister" variant="page" />
-
-        <section ref="heroSection" class="relative min-h-[72vh] flex items-center pt-24 overflow-hidden bg-[#020308]">
+    <MarketingLayout :can-login="canLogin" :can-register="canRegister">
+        <Head title="Services" />
+        <div class="min-h-screen bg-paper text-ink">
+        <section ref="heroSection" class="relative flex min-h-[72vh] items-center overflow-hidden bg-hero-bg pt-6">
             <CosmicFlowBackground :container="heroSection" class="z-0" />
-            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-[#020308]/95 via-[#020308]/60 to-transparent" />
-            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-[#020308]/85 via-transparent to-[#020308]/35" />
+            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-hero-bg/95 via-hero-bg/60 to-transparent" />
+            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-hero-bg/85 via-transparent to-hero-bg/35" />
             <div class="relative z-10 max-w-7xl mx-auto px-6 py-20 w-full">
                 <div v-motion :initial="{ opacity: 0, y: 24 }" :visibleOnce="{ opacity: 1, y: 0 }" class="max-w-3xl">
-                    <p class="text-sm font-medium tracking-wide text-[#38BDF8]/90 uppercase">Services</p>
-                    <h1 class="mt-4 text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">What we deliver</h1>
-                    <p class="mt-6 text-xl text-white/70 max-w-2xl leading-relaxed">
+                    <p class="text-sm font-medium uppercase tracking-wide text-accent">Services</p>
+                    <h1 class="mt-4 text-5xl font-bold leading-tight text-hero-ink md:text-6xl lg:text-7xl">What we deliver</h1>
+                    <p class="mt-6 max-w-2xl text-xl leading-relaxed text-hero-muted">
                         End-to-end digital capabilities—from first sketch to production systems—with a premium, minimalist touch.
                     </p>
                 </div>
             </div>
         </section>
 
-        <section class="py-24 bg-[#F1F1F1] relative overflow-hidden">
-            <div class="absolute -top-16 right-0 w-96 h-96 bg-[#38BDF8]/10 rounded-full blur-3xl pointer-events-none" />
+        <section class="relative overflow-hidden bg-surface-raised py-24">
+            <div class="pointer-events-none absolute -top-16 right-0 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
             <div class="relative z-10 max-w-7xl mx-auto px-6">
                 <div class="flex flex-col lg:flex-row gap-8">
                     <div class="flex-1 flex flex-col gap-6">
@@ -96,14 +94,14 @@ const process = [
                             :initial="{ opacity: 0, y: 22 }"
                             :visibleOnce="{ opacity: 1, y: 0 }"
                             :delay="index * 0.08"
-                            class="bg-white p-8 rounded-2xl border border-white/60 shadow-sm hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300"
+                            class="rounded-2xl border border-border bg-surface p-8 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
                         >
-                            <div class="w-16 h-16 bg-[#F1F1F1] rounded-xl flex items-center justify-center mb-6 text-[#38BDF8]" v-html="service.icon" />
-                            <h3 class="text-xl font-semibold text-[#041228] mb-4">{{ service.title }}</h3>
-                            <p class="text-gray-600 leading-relaxed mb-6">{{ service.description }}</p>
+                            <div class="mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-surface-raised text-accent" v-html="service.icon" />
+                            <h3 class="mb-4 text-xl font-semibold text-ink">{{ service.title }}</h3>
+                            <p class="mb-6 leading-relaxed text-ink-muted">{{ service.description }}</p>
                             <ul class="space-y-2">
-                                <li v-for="feature in service.features" :key="feature" class="text-gray-500 text-sm flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8]" />
+                                <li v-for="feature in service.features" :key="feature" class="flex items-center gap-2 text-sm text-ink-muted">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-accent" />
                                     {{ feature }}
                                 </li>
                             </ul>
@@ -117,14 +115,14 @@ const process = [
                             :initial="{ opacity: 0, y: 22 }"
                             :visibleOnce="{ opacity: 1, y: 0 }"
                             :delay="0.08 + index * 0.08"
-                            class="bg-white p-8 rounded-2xl border border-white/60 shadow-sm hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300"
+                            class="rounded-2xl border border-border bg-surface p-8 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
                         >
-                            <div class="w-16 h-16 bg-[#F1F1F1] rounded-xl flex items-center justify-center mb-6 text-[#38BDF8]" v-html="service.icon" />
-                            <h3 class="text-xl font-semibold text-[#041228] mb-4">{{ service.title }}</h3>
-                            <p class="text-gray-600 leading-relaxed mb-6">{{ service.description }}</p>
+                            <div class="mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-surface-raised text-accent" v-html="service.icon" />
+                            <h3 class="mb-4 text-xl font-semibold text-ink">{{ service.title }}</h3>
+                            <p class="mb-6 leading-relaxed text-ink-muted">{{ service.description }}</p>
                             <ul class="space-y-2">
-                                <li v-for="feature in service.features" :key="feature" class="text-gray-500 text-sm flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8]" />
+                                <li v-for="feature in service.features" :key="feature" class="flex items-center gap-2 text-sm text-ink-muted">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-accent" />
                                     {{ feature }}
                                 </li>
                             </ul>
@@ -134,17 +132,17 @@ const process = [
             </div>
         </section>
 
-        <section class="py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-6">
+        <section class="bg-surface py-24">
+            <div class="mx-auto max-w-7xl px-6">
                 <h2
                     v-motion
                     :initial="{ opacity: 0, y: 20 }"
                     :visibleOnce="{ opacity: 1, y: 0 }"
-                    class="text-4xl md:text-5xl font-bold text-[#041228] text-center mb-14"
+                    class="mb-14 text-center text-4xl font-bold text-ink md:text-5xl"
                 >
                     How we work
                 </h2>
-                <div class="flex flex-col md:flex-row md:flex-wrap gap-8">
+                <div class="flex flex-col gap-8 md:flex-row md:flex-wrap">
                     <div
                         v-for="(item, index) in process"
                         :key="item.step"
@@ -152,37 +150,37 @@ const process = [
                         :initial="{ opacity: 0, y: 20 }"
                         :visibleOnce="{ opacity: 1, y: 0 }"
                         :delay="index * 0.06"
-                        class="flex-1 min-w-[240px] border border-gray-100 rounded-2xl p-6 bg-white shadow-sm hover:shadow-md transition-shadow"
+                        class="min-w-[240px] flex-1 rounded-2xl border border-border bg-surface p-6 shadow-sm transition-shadow hover:shadow-md"
                     >
-                        <div class="text-[#38BDF8]/35 text-6xl font-bold mb-2">{{ item.step }}</div>
-                        <h3 class="text-xl font-semibold text-[#041228] mb-3">{{ item.title }}</h3>
-                        <p class="text-gray-600 leading-relaxed">{{ item.description }}</p>
+                        <div class="mb-2 text-6xl font-bold text-accent/35">{{ item.step }}</div>
+                        <h3 class="mb-3 text-xl font-semibold text-ink">{{ item.title }}</h3>
+                        <p class="leading-relaxed text-ink-muted">{{ item.description }}</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-24 bg-[#F1F1F1]">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="flex flex-col lg:flex-row gap-16 items-center">
+        <section class="bg-surface-raised py-24">
+            <div class="mx-auto max-w-7xl px-6">
+                <div class="flex flex-col items-center gap-16 lg:flex-row">
                     <div v-motion :initial="{ opacity: 0, y: 22 }" :visibleOnce="{ opacity: 1, y: 0 }" class="flex-1">
-                        <h2 class="text-4xl font-bold text-[#041228] mb-6">Why teams choose us</h2>
-                        <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                        <h2 class="mb-6 text-4xl font-bold text-ink">Why teams choose us</h2>
+                        <p class="mb-8 text-lg leading-relaxed text-ink-muted">
                             We ship with clarity: tight communication, predictable timelines, and engineering you can extend later without regret.
                         </p>
                         <div class="space-y-4">
                             <div v-for="label in ['Senior-led delivery', 'Performance & accessibility', 'Post-launch partnership']" :key="label" class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center border border-gray-100 shadow-sm">
-                                    <svg class="w-5 h-5 text-[#38BDF8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-surface shadow-sm">
+                                    <svg class="h-5 w-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                 </div>
-                                <span class="text-[#041228] font-medium">{{ label }}</span>
+                                <span class="font-medium text-ink">{{ label }}</span>
                             </div>
                         </div>
                     </div>
-                    <div v-motion :initial="{ opacity: 0, y: 22 }" :visibleOnce="{ opacity: 1, y: 0 }" :delay="0.1" class="flex-1 w-full">
-                        <div class="aspect-video rounded-3xl overflow-hidden bg-[#F1F1F1] border border-gray-100 shadow-xl">
+                    <div v-motion :initial="{ opacity: 0, y: 22 }" :visibleOnce="{ opacity: 1, y: 0 }" :delay="0.1" class="w-full flex-1">
+                        <div class="aspect-video overflow-hidden rounded-3xl border border-border bg-surface-raised shadow-xl">
                             <img
                                 src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=900&h=600&fit=crop"
                                 alt="Collaboration"
@@ -194,17 +192,17 @@ const process = [
             </div>
         </section>
 
-        <section class="py-24 bg-white">
-            <div class="max-w-4xl mx-auto px-6 text-center">
-                <h2 v-motion :initial="{ opacity: 0, y: 20 }" :visibleOnce="{ opacity: 1, y: 0 }" class="text-4xl font-bold text-[#041228] mb-6">
+        <section class="bg-surface py-24">
+            <div class="mx-auto max-w-4xl px-6 text-center">
+                <h2 v-motion :initial="{ opacity: 0, y: 20 }" :visibleOnce="{ opacity: 1, y: 0 }" class="mb-6 text-4xl font-bold text-ink">
                     Ready to start?
                 </h2>
-                <p v-motion :initial="{ opacity: 0, y: 20 }" :visibleOnce="{ opacity: 1, y: 0 }" :delay="0.08" class="text-gray-600 text-lg mb-8">
+                <p v-motion :initial="{ opacity: 0, y: 20 }" :visibleOnce="{ opacity: 1, y: 0 }" :delay="0.08" class="mb-8 text-lg text-ink-muted">
                     Tell us what you’re building—we’ll propose a focused plan.
                 </p>
                 <Link
                     :href="route('contact')"
-                    class="inline-flex items-center gap-2 px-8 py-4 bg-[#38BDF8] text-[#041228] font-semibold rounded-full hover:bg-[#19427D] hover:text-white transition-all hover:-translate-y-0.5 shadow-md"
+                    class="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 font-semibold text-accent-fg shadow-md transition-all hover:-translate-y-0.5 hover:bg-accent-hover"
                 >
                     Get in touch
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -214,6 +212,6 @@ const process = [
             </div>
         </section>
 
-        <SiteFooter />
-    </div>
+        </div>
+    </MarketingLayout>
 </template>

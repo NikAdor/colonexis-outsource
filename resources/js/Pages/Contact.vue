@@ -2,8 +2,7 @@
 import { ref } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import CosmicFlowBackground from '@/Components/CosmicFlowBackground.vue';
-import SiteFooter from '@/Components/SiteFooter.vue';
-import SiteHeader from '@/Components/SiteHeader.vue';
+import MarketingLayout from '@/Components/MarketingLayout.vue';
 
 defineProps({
     canLogin: { type: Boolean, default: false },
@@ -64,28 +63,27 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-    <Head title="Contact" />
-    <div class="min-h-screen bg-white text-gray-900">
-        <SiteHeader :can-login="canLogin" :can-register="canRegister" variant="page" />
-
-        <section ref="heroSection" class="relative min-h-[56vh] flex items-center pt-24 overflow-hidden bg-[#020308]">
+    <MarketingLayout :can-login="canLogin" :can-register="canRegister">
+        <Head title="Contact" />
+        <div class="min-h-screen bg-paper text-ink">
+        <section ref="heroSection" class="relative flex min-h-[56vh] items-center overflow-hidden bg-hero-bg pt-6">
             <CosmicFlowBackground :container="heroSection" class="z-0" />
-            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-[#020308]/95 via-[#020308]/60 to-transparent" />
-            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-[#020308]/85 via-transparent to-[#020308]/35" />
-            <div class="relative z-10 max-w-7xl mx-auto px-6 py-16 w-full">
+            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-hero-bg/95 via-hero-bg/60 to-transparent" />
+            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-hero-bg/85 via-transparent to-hero-bg/35" />
+            <div class="relative z-10 mx-auto w-full max-w-7xl px-6 py-16">
                 <div v-motion :initial="{ opacity: 0, y: 24 }" :visibleOnce="{ opacity: 1, y: 0 }" class="max-w-3xl">
-                    <p class="text-sm font-medium tracking-wide text-[#38BDF8]/90 uppercase">Contact</p>
-                    <h1 class="mt-4 text-5xl md:text-6xl font-bold text-white leading-tight">Let’s talk</h1>
-                    <p class="mt-6 text-xl text-white/70 max-w-2xl leading-relaxed">
+                    <p class="text-sm font-medium uppercase tracking-wide text-accent">Contact</p>
+                    <h1 class="mt-4 text-5xl font-bold leading-tight text-hero-ink md:text-6xl">Let’s talk</h1>
+                    <p class="mt-6 max-w-2xl text-xl leading-relaxed text-hero-muted">
                         Share your goals and timeline. This form is a demo—nothing is sent to a server.
                     </p>
                 </div>
             </div>
         </section>
 
-        <section class="py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="flex flex-col lg:flex-row gap-8">
+        <section class="bg-surface py-24">
+            <div class="mx-auto max-w-7xl px-6">
+                <div class="flex flex-col gap-8 lg:flex-row">
                     <div
                         v-for="(info, index) in contactInfo"
                         :key="info.title"
@@ -93,38 +91,38 @@ const handleSubmit = async () => {
                         :initial="{ opacity: 0, y: 20 }"
                         :visibleOnce="{ opacity: 1, y: 0 }"
                         :delay="index * 0.08"
-                        class="flex-1 bg-[#F1F1F1] p-8 rounded-2xl text-center border border-white shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all"
+                        class="flex-1 rounded-2xl border border-border bg-surface-raised p-8 text-center shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
                     >
-                        <div class="w-14 h-14 bg-white rounded-xl flex items-center justify-center mb-6 text-[#38BDF8] mx-auto" v-html="info.icon" />
-                        <h3 class="text-xl font-semibold text-[#041228] mb-2">{{ info.title }}</h3>
-                        <div class="text-[#38BDF8] font-medium mb-2">{{ info.value }}</div>
-                        <div class="text-gray-500 text-sm">{{ info.description }}</div>
+                        <div class="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-xl border border-border bg-surface text-accent" v-html="info.icon" />
+                        <h3 class="mb-2 text-xl font-semibold text-ink">{{ info.title }}</h3>
+                        <div class="mb-2 font-medium text-accent">{{ info.value }}</div>
+                        <div class="text-sm text-ink-muted">{{ info.description }}</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-24 bg-[#F1F1F1]">
-            <div class="max-w-4xl mx-auto px-6">
+        <section class="bg-surface-raised py-24">
+            <div class="mx-auto max-w-4xl px-6">
                 <div
                     v-motion
                     :initial="{ opacity: 0, y: 24 }"
                     :visibleOnce="{ opacity: 1, y: 0 }"
-                    class="bg-white rounded-2xl shadow-sm border border-white/80 p-8 md:p-12"
+                    class="rounded-2xl border border-border bg-surface p-8 shadow-sm md:p-12"
                 >
-                    <h2 class="text-3xl font-bold text-[#041228] mb-8 text-center">Send a message</h2>
+                    <h2 class="mb-8 text-center text-3xl font-bold text-ink">Send a message</h2>
 
-                    <div v-if="isSubmitted" class="text-center py-12">
-                        <div class="w-20 h-20 bg-[#F1F1F1] rounded-full flex items-center justify-center mx-auto mb-6">
-                            <svg class="w-10 h-10 text-[#38BDF8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div v-if="isSubmitted" class="py-12 text-center">
+                        <div class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-surface-raised">
+                            <svg class="h-10 w-10 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-[#041228] mb-4">Thank you</h3>
-                        <p class="text-gray-600 mb-8">Demo only—no message was transmitted.</p>
+                        <h3 class="mb-4 text-2xl font-bold text-ink">Thank you</h3>
+                        <p class="mb-8 text-ink-muted">Demo only—no message was transmitted.</p>
                         <button
                             type="button"
-                            class="px-6 py-3 border border-[#041228] text-[#041228] rounded-full hover:bg-[#041228] hover:text-white transition-colors"
+                            class="rounded-full border border-ink px-6 py-3 text-ink transition-colors hover:bg-ink hover:text-paper"
                             @click="isSubmitted = false"
                         >
                             Send another message
@@ -132,74 +130,71 @@ const handleSubmit = async () => {
                     </div>
 
                     <form v-else class="space-y-6" @submit.prevent="handleSubmit">
-                        <div class="grid md:grid-cols-2 gap-6">
+                        <div class="grid gap-6 md:grid-cols-2">
                             <div>
-                                <label class="block text-[#041228] text-sm font-medium mb-2">Name *</label>
+                                <label class="mb-2 block text-sm font-medium text-ink">Name *</label>
                                 <input
                                     v-model="form.name"
                                     type="text"
                                     required
-                                    class="w-full px-4 py-3 bg-[#F1F1F1] border-0 rounded-lg text-[#041228] placeholder-gray-400 focus:ring-2 focus:ring-[#38BDF8] outline-none transition-colors"
+                                    class="ds-input rounded-lg"
                                     placeholder="Your name"
                                 />
                             </div>
                             <div>
-                                <label class="block text-[#041228] text-sm font-medium mb-2">Email *</label>
+                                <label class="mb-2 block text-sm font-medium text-ink">Email *</label>
                                 <input
                                     v-model="form.email"
                                     type="email"
                                     required
-                                    class="w-full px-4 py-3 bg-[#F1F1F1] border-0 rounded-lg text-[#041228] placeholder-gray-400 focus:ring-2 focus:ring-[#38BDF8] outline-none transition-colors"
+                                    class="ds-input rounded-lg"
                                     placeholder="your@email.com"
                                 />
                             </div>
                         </div>
-                        <div class="grid md:grid-cols-2 gap-6">
+                        <div class="grid gap-6 md:grid-cols-2">
                             <div>
-                                <label class="block text-[#041228] text-sm font-medium mb-2">Phone</label>
+                                <label class="mb-2 block text-sm font-medium text-ink">Phone</label>
                                 <input
                                     v-model="form.phone"
                                     type="tel"
-                                    class="w-full px-4 py-3 bg-[#F1F1F1] border-0 rounded-lg text-[#041228] placeholder-gray-400 focus:ring-2 focus:ring-[#38BDF8] outline-none transition-colors"
+                                    class="ds-input rounded-lg"
                                     placeholder="+1 (555) 000-0000"
                                 />
                             </div>
                             <div>
-                                <label class="block text-[#041228] text-sm font-medium mb-2">Company</label>
+                                <label class="mb-2 block text-sm font-medium text-ink">Company</label>
                                 <input
                                     v-model="form.company"
                                     type="text"
-                                    class="w-full px-4 py-3 bg-[#F1F1F1] border-0 rounded-lg text-[#041228] placeholder-gray-400 focus:ring-2 focus:ring-[#38BDF8] outline-none transition-colors"
+                                    class="ds-input rounded-lg"
                                     placeholder="Your company"
                                 />
                             </div>
                         </div>
                         <div>
-                            <label class="block text-[#041228] text-sm font-medium mb-2">Service</label>
-                            <select
-                                v-model="form.service"
-                                class="w-full px-4 py-3 bg-[#F1F1F1] border-0 rounded-lg text-[#041228] focus:ring-2 focus:ring-[#38BDF8] outline-none transition-colors"
-                            >
-                                <option value="" class="bg-white">Select a service</option>
-                                <option v-for="service in services" :key="service" :value="service" class="bg-white">
+                            <label class="mb-2 block text-sm font-medium text-ink">Service</label>
+                            <select v-model="form.service" class="ds-input rounded-lg">
+                                <option value="" class="bg-surface">Select a service</option>
+                                <option v-for="service in services" :key="service" :value="service" class="bg-surface">
                                     {{ service }}
                                 </option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-[#041228] text-sm font-medium mb-2">Message *</label>
+                            <label class="mb-2 block text-sm font-medium text-ink">Message *</label>
                             <textarea
                                 v-model="form.message"
                                 rows="5"
                                 required
-                                class="w-full px-4 py-3 bg-[#F1F1F1] border-0 rounded-lg text-[#041228] placeholder-gray-400 focus:ring-2 focus:ring-[#38BDF8] outline-none transition-colors resize-none"
+                                class="ds-input resize-none rounded-lg"
                                 placeholder="Tell us about your project..."
                             />
                         </div>
                         <button
                             type="submit"
                             :disabled="isSubmitting"
-                            class="w-full py-4 bg-[#38BDF8] text-[#041228] font-semibold rounded-lg hover:bg-[#19427D] hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                            class="flex w-full items-center justify-center gap-2 rounded-lg bg-accent py-4 font-semibold text-accent-fg transition-all hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             <svg v-if="isSubmitting" class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
@@ -216,6 +211,6 @@ const handleSubmit = async () => {
             </div>
         </section>
 
-        <SiteFooter />
-    </div>
+        </div>
+    </MarketingLayout>
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import MarketingLayout from '@/Components/MarketingLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -15,6 +15,8 @@ const props = defineProps({
         type: String,
         required: true,
     },
+    canLogin: { type: Boolean, default: true },
+    canRegister: { type: Boolean, default: true },
 });
 
 const form = useForm({
@@ -32,9 +34,10 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
+    <MarketingLayout :can-login="canLogin" :can-register="canRegister">
         <Head title="Reset Password" />
 
+        <div class="mx-auto w-full max-w-md rounded-lg bg-white px-6 py-8 shadow-md sm:px-8">
         <form @submit.prevent="submit">
             <div>
                 <InputLabel for="email" value="Email" />
@@ -97,5 +100,6 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
-    </GuestLayout>
+        </div>
+    </MarketingLayout>
 </template>

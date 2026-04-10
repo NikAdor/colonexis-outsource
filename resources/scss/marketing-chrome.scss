@@ -1,0 +1,307 @@
+// Shared homepage-style header & footer (Stitch marketing chrome)
+
+$mc-primary: #0a0f2f;
+$mc-secondary: #1d4d88;
+$mc-accent: #38bdf8;
+$mc-background: #f1f1f1;
+$mc-surface: #ffffff;
+$mc-on-surface: #1a1c1c;
+$mc-on-surface-variant: #46464e;
+$mc-surface-container: #eeeeee;
+$mc-radius: 4px;
+$mc-slate-400: #94a3b8;
+$mc-slate-500: #64748b;
+$mc-headline: 'Manrope', system-ui, sans-serif;
+$mc-body: 'Inter', system-ui, sans-serif;
+$mc-max: 80rem;
+$mc-break-md: 768px;
+
+.marketing-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: $mc-body;
+    font-size: 16px;
+    line-height: 1.5;
+    color: $mc-on-surface;
+    background-color: $mc-background;
+    -webkit-font-smoothing: antialiased;
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+}
+
+.marketing-layout__content {
+    flex: 1;
+    width: 100%;
+    padding-top: 4rem;
+}
+
+.welcome-page__nav .material-symbols-outlined,
+.welcome-page__footer .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    vertical-align: middle;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+}
+
+.welcome-page__nav {
+    position: fixed;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 4rem;
+    padding: 0 2rem;
+    background: rgba($mc-surface, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid $mc-surface-container;
+}
+
+.welcome-page__nav-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.welcome-page__logo {
+    text-decoration: none;
+
+    &:focus-visible {
+        outline: 2px solid $mc-accent;
+        outline-offset: 4px;
+    }
+
+    img {
+        display: block;
+    }
+}
+
+.welcome-page__nav-links {
+    display: none;
+    align-items: center;
+    gap: 1.5rem;
+
+    @media (min-width: $mc-break-md) {
+        display: flex;
+    }
+}
+
+.welcome-page__nav-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $mc-on-surface-variant;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover {
+        color: $mc-primary;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $mc-secondary;
+        outline-offset: 2px;
+    }
+
+    &.is-active {
+        padding-bottom: 0.25rem;
+        color: $mc-primary;
+        border-bottom: 2px solid $mc-primary;
+    }
+}
+
+.welcome-page__nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.welcome-page__btn-nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1.25rem;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    border-radius: $mc-radius;
+    cursor: pointer;
+    transition:
+        opacity 0.15s ease,
+        background-color 0.15s ease;
+
+    &--primary {
+        color: #fff;
+        background-color: $mc-primary;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+
+    &--accent {
+        color: $mc-primary;
+        background-color: $mc-accent;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+
+    &:focus-visible {
+        outline: 2px solid $mc-accent;
+        outline-offset: 2px;
+    }
+}
+
+.welcome-page__footer {
+    padding: 4rem 2rem;
+    font-size: 0.875rem;
+    color: #fff;
+    background-color: $mc-primary;
+}
+
+.welcome-page__footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    max-width: $mc-max;
+    margin: 0 auto;
+
+    @media (min-width: $mc-break-md) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.welcome-page__footer-brand-title {
+    display: block;
+    margin-bottom: 1.5rem;
+    font-family: $mc-headline;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.welcome-page__footer-about {
+    margin: 0 0 2rem;
+    line-height: 1.625;
+    color: $mc-slate-400;
+}
+
+.welcome-page__footer-social {
+    display: flex;
+    gap: 1rem;
+}
+
+.welcome-page__footer-social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    color: #fff;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: $mc-radius;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+
+    &:hover {
+        color: $mc-primary;
+        background-color: $mc-accent;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $mc-accent;
+        outline-offset: 2px;
+    }
+
+    .material-symbols-outlined {
+        font-size: 0.875rem;
+    }
+}
+
+.welcome-page__footer-col-title {
+    margin: 0 0 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fff;
+}
+
+.welcome-page__footer-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li + li {
+        margin-top: 1rem;
+    }
+}
+
+.welcome-page__footer-link {
+    color: $mc-slate-400;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover {
+        color: #fff;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $mc-accent;
+        outline-offset: 2px;
+    }
+}
+
+.welcome-page__footer-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    max-width: $mc-max;
+    margin: 4rem auto 0;
+    padding-top: 2rem;
+    font-size: 0.75rem;
+    color: $mc-slate-500;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+    @media (min-width: $mc-break-md) {
+        flex-direction: row;
+    }
+}
+
+.welcome-page__footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.welcome-page__footer-legal a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+        color: #fff;
+    }
+}

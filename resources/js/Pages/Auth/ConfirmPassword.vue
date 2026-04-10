@@ -1,10 +1,15 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import MarketingLayout from '@/Components/MarketingLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+
+defineProps({
+    canLogin: { type: Boolean, default: false },
+    canRegister: { type: Boolean, default: false },
+});
 
 const form = useForm({
     password: '',
@@ -18,9 +23,10 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
+    <MarketingLayout :can-login="canLogin" :can-register="canRegister">
         <Head title="Confirm Password" />
 
+        <div class="mx-auto w-full max-w-md rounded-lg bg-white px-6 py-8 shadow-md sm:px-8">
         <div class="mb-4 text-sm text-gray-600">
             This is a secure area of the application. Please confirm your
             password before continuing.
@@ -51,5 +57,6 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
-    </GuestLayout>
+        </div>
+    </MarketingLayout>
 </template>

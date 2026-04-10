@@ -1,0 +1,17 @@
+{
+    "name": "Colonexis",
+    "short_name": "Colonexis",
+    "description": "Digital products, interfaces, and systems built with care.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f1f1f1",
+    "theme_color": "#041228",
+    "icons": [
+        {
+            "src": "/img/Colonexis-logo.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}

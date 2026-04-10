@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import MarketingLayout from '@/Components/MarketingLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
@@ -8,6 +8,8 @@ const props = defineProps({
     status: {
         type: String,
     },
+    canLogin: { type: Boolean, default: false },
+    canRegister: { type: Boolean, default: false },
 });
 
 const form = useForm({});
@@ -22,9 +24,10 @@ const verificationLinkSent = computed(
 </script>
 
 <template>
-    <GuestLayout>
+    <MarketingLayout :can-login="canLogin" :can-register="canRegister">
         <Head title="Email Verification" />
 
+        <div class="mx-auto w-full max-w-md rounded-lg bg-white px-6 py-8 shadow-md sm:px-8">
         <div class="mb-4 text-sm text-gray-600">
             Thanks for signing up! Before getting started, could you verify your
             email address by clicking on the link we just emailed to you? If you
@@ -57,5 +60,6 @@ const verificationLinkSent = computed(
                 >
             </div>
         </form>
-    </GuestLayout>
+        </div>
+    </MarketingLayout>
 </template>

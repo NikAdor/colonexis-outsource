@@ -2,8 +2,7 @@
 import { Head, Link } from '@inertiajs/vue3';
 import { onMounted, onUnmounted, ref } from 'vue';
 import CosmicFlowBackground from '@/Components/CosmicFlowBackground.vue';
-import SiteFooter from '@/Components/SiteFooter.vue';
-import SiteHeader from '@/Components/SiteHeader.vue';
+import MarketingLayout from '@/Components/MarketingLayout.vue';
 
 defineProps({
     canLogin: { type: Boolean, default: false },
@@ -126,17 +125,13 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <Head title="About" />
-    <div class="min-h-screen bg-white text-gray-900">
-        <SiteHeader :can-login="canLogin" :can-register="canRegister" variant="page" />
-
-        <section
-            ref="heroSection"
-            class="relative min-h-[72vh] flex items-center pt-24 overflow-hidden bg-[#020308]"
-        >
+    <MarketingLayout :can-login="canLogin" :can-register="canRegister">
+        <Head title="About" />
+        <div class="min-h-screen bg-paper text-ink">
+        <section ref="heroSection" class="relative flex min-h-[72vh] items-center overflow-hidden bg-hero-bg pt-6">
             <CosmicFlowBackground :container="heroSection" class="z-0" />
-            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-[#020308]/95 via-[#020308]/60 to-transparent" />
-            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-[#020308]/85 via-transparent to-[#020308]/35" />
+            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-hero-bg/95 via-hero-bg/60 to-transparent" />
+            <div class="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-hero-bg/85 via-transparent to-hero-bg/35" />
             <div class="relative z-10 max-w-7xl mx-auto px-6 py-20 w-full">
                 <div
                     v-motion
@@ -144,18 +139,18 @@ onUnmounted(() => {
                     :visibleOnce="{ opacity: 1, y: 0 }"
                     class="max-w-3xl"
                 >
-                    <p class="text-sm font-medium tracking-wide text-[#38BDF8]/90 uppercase">About</p>
-                    <h1 class="mt-4 text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+                    <p class="text-sm font-medium uppercase tracking-wide text-accent">About</p>
+                    <h1 class="mt-4 text-5xl font-bold leading-tight text-hero-ink md:text-6xl lg:text-7xl">
                         A studio built for clarity
                     </h1>
-                    <p class="mt-6 text-xl text-white/70 max-w-2xl leading-relaxed">
+                    <p class="mt-6 max-w-2xl text-xl leading-relaxed text-hero-muted">
                         We combine strategy, design, and engineering to ship digital products that feel refined and perform reliably.
                     </p>
                 </div>
             </div>
         </section>
 
-        <section class="py-24 bg-white relative overflow-hidden">
+        <section class="relative overflow-hidden bg-surface py-24">
             <div class="max-w-7xl mx-auto px-6">
                 <div class="flex flex-col lg:flex-row gap-12 lg:gap-14 items-start">
                     <div
@@ -164,31 +159,31 @@ onUnmounted(() => {
                         :visibleOnce="{ opacity: 1, y: 0 }"
                         class="w-full lg:w-[46%] relative"
                     >
-                        <div class="relative rounded-3xl overflow-hidden shadow-xl border border-[#E8EEF8] bg-[#0D2B5C]">
+                        <div class="relative overflow-hidden rounded-3xl border border-border bg-hero-bg shadow-xl">
                             <img
                                 src="https://picsum.photos/seed/colonexis-about-story/900/1100"
                                 alt="Team collaboration"
-                                class="w-full h-[560px] object-cover opacity-80"
+                                class="h-[560px] w-full object-cover opacity-80"
                             />
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#041228]/85 via-[#041228]/25 to-[#041228]/15" />
-                            <div class="absolute left-7 bottom-7">
-                                <p class="text-4xl leading-tight font-bold text-white">
+                            <div class="absolute inset-0 bg-gradient-to-t from-hero-bg/90 via-hero-bg/30 to-hero-bg/10" />
+                            <div class="absolute bottom-7 left-7">
+                                <p class="text-4xl font-bold leading-tight text-hero-ink">
                                     Building Tomorrow's
                                 </p>
-                                <p class="text-4xl leading-tight font-bold text-[#38BDF8]">
+                                <p class="text-4xl font-bold leading-tight text-accent">
                                     Digital World
                                 </p>
                             </div>
                         </div>
 
-                        <div class="absolute right-5 -top-6 bg-white rounded-2xl border border-[#E8EEF8] shadow-lg px-4 py-3">
-                            <div class="text-[11px] uppercase tracking-wide text-[#19427D] font-semibold">#1 Agency</div>
-                            <div class="text-xs text-gray-500">2024 Award</div>
+                        <div class="absolute -top-6 right-5 rounded-2xl border border-border bg-surface px-4 py-3 shadow-lg">
+                            <div class="text-[11px] font-semibold uppercase tracking-wide text-accent">#1 Agency</div>
+                            <div class="text-xs text-ink-muted">2024 Award</div>
                         </div>
 
-                        <div class="absolute -right-6 bottom-10 bg-gradient-to-b from-[#2F64D7] to-[#38BDF8] text-white rounded-3xl shadow-xl px-6 py-5 text-center">
+                        <div class="absolute -right-6 bottom-10 rounded-3xl bg-gradient-to-b from-accent to-accent-hover px-6 py-5 text-center text-accent-fg shadow-xl">
                             <div class="text-4xl font-bold leading-none">10</div>
-                            <div class="text-sm mt-1 text-white/90">Years of Experience</div>
+                            <div class="mt-1 text-sm text-accent-fg/90">Years of Experience</div>
                         </div>
                     </div>
 
@@ -199,14 +194,14 @@ onUnmounted(() => {
                         :delay="0.1"
                         class="w-full lg:w-[54%] pt-2"
                     >
-                        <div class="inline-flex items-center rounded-full border border-[#D6E4F8] bg-[#F7FAFF] px-4 py-1.5 text-xs font-semibold tracking-wide text-[#19427D] uppercase">
+                        <div class="inline-flex items-center rounded-full border border-border bg-surface-raised px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-accent">
                             About Colonexis
                         </div>
-                        <h2 class="mt-5 text-4xl md:text-5xl lg:text-[56px] leading-[1.05] font-bold text-[#041228]">
+                        <h2 class="mt-5 text-4xl font-bold leading-[1.05] text-ink md:text-5xl lg:text-[56px]">
                             Your Central Hub for
-                            <span class="text-[#2F64D7]"> Digital Growth</span>
+                            <span class="text-accent"> Digital Growth</span>
                         </h2>
-                        <p class="mt-6 text-gray-600 text-lg leading-relaxed max-w-3xl">
+                        <p class="mt-6 max-w-3xl text-lg leading-relaxed text-ink-muted">
                             Colonexis is a full-service digital solutions provider helping businesses grow, automate, and scale through modern technology. We connect brands to the tools, strategies, and talent they need to thrive in today's competitive landscape.
                         </p>
 
@@ -214,9 +209,9 @@ onUnmounted(() => {
                             <li
                                 v-for="point in storyPoints"
                                 :key="point"
-                                class="flex items-start gap-3 text-[#041228] text-base md:text-lg"
+                                class="flex items-start gap-3 text-base text-ink md:text-lg"
                             >
-                                <span class="mt-1 inline-flex items-center justify-center w-5 h-5 rounded-full border border-[#7EA9F3] text-[#2F64D7] text-xs">✓</span>
+                                <span class="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full border border-border-strong text-xs text-accent">✓</span>
                                 <span>{{ point }}</span>
                             </li>
                         </ul>
@@ -225,10 +220,10 @@ onUnmounted(() => {
                             <div
                                 v-for="item in storyMiniStats"
                                 :key="item.label"
-                                class="rounded-2xl bg-[#F8FAFD] border border-[#EEF2F7] px-5 py-5 text-center"
+                                class="rounded-2xl border border-border bg-surface-raised px-5 py-5 text-center"
                             >
-                                <div class="text-3xl font-bold text-[#2F64D7] leading-none">{{ item.value }}</div>
-                                <div class="mt-2 text-sm text-gray-600">{{ item.label }}</div>
+                                <div class="text-3xl font-bold leading-none text-accent">{{ item.value }}</div>
+                                <div class="mt-2 text-sm text-ink-muted">{{ item.label }}</div>
                             </div>
                         </div>
                     </div>
@@ -236,16 +231,16 @@ onUnmounted(() => {
             </div>
         </section>
 
-        <section class="py-24 bg-[#041228] relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-b from-[#020308] via-[#041228] to-[#020308]" />
-            <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[900px] h-[520px] bg-[#38BDF8]/10 rounded-full blur-3xl" />
+        <section class="relative overflow-hidden bg-hero-bg py-24">
+            <div class="absolute inset-0 bg-gradient-to-b from-hero-bg via-hero-bg to-hero-bg" />
+            <div class="absolute -top-24 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
 
             <div class="relative z-10 max-w-7xl mx-auto px-6">
                 <h2
                     v-motion
                     :initial="{ opacity: 0, y: 20 }"
                     :visibleOnce="{ opacity: 1, y: 0 }"
-                    class="text-4xl md:text-5xl font-bold text-white text-center mb-16"
+                    class="mb-16 text-center text-4xl font-bold text-hero-ink md:text-5xl"
                 >
                     Core values
                 </h2>
@@ -258,32 +253,32 @@ onUnmounted(() => {
                                 v-motion
                                 :initial="{ opacity: 0, y: 18 }"
                                 :visibleOnce="{ opacity: 1, y: 0 }"
-                                class="bg-white rounded-2xl p-8 shadow-xl transform-gpu animate-float"
+                                class="animate-float transform-gpu rounded-2xl bg-surface p-8 shadow-xl"
                                 style="animation-delay: 0.1s"
                             >
-                                <div class="w-10 h-10 rounded-full bg-[#38BDF8]/15 flex items-center justify-center mb-4">
-                                    <svg class="w-5 h-5 text-[#38BDF8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-accent/15">
+                                    <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path :d="coreValues[0].icon" />
                                     </svg>
                                 </div>
-                                <div class="text-[#041228] font-bold text-lg">{{ coreValues[0].title }}</div>
-                                <div class="mt-2 text-sm text-gray-600 leading-relaxed">{{ coreValues[0].description }}</div>
+                                <div class="text-lg font-bold text-ink">{{ coreValues[0].title }}</div>
+                                <div class="mt-2 text-sm leading-relaxed text-ink-muted">{{ coreValues[0].description }}</div>
                             </div>
 
                             <div
                                 v-motion
                                 :initial="{ opacity: 0, y: 18 }"
                                 :visibleOnce="{ opacity: 1, y: 0 }"
-                                class="bg-white rounded-2xl p-8 shadow-xl transform-gpu animate-float"
+                                class="animate-float transform-gpu rounded-2xl bg-surface p-8 shadow-xl"
                                 style="animation-delay: 0.45s"
                             >
-                                <div class="w-10 h-10 rounded-full bg-[#38BDF8]/15 flex items-center justify-center mb-4">
-                                    <svg class="w-5 h-5 text-[#38BDF8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-accent/15">
+                                    <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path :d="coreValues[1].icon" />
                                     </svg>
                                 </div>
-                                <div class="text-[#041228] font-bold text-lg">{{ coreValues[1].title }}</div>
-                                <div class="mt-2 text-sm text-gray-600 leading-relaxed">{{ coreValues[1].description }}</div>
+                                <div class="text-lg font-bold text-ink">{{ coreValues[1].title }}</div>
+                                <div class="mt-2 text-sm leading-relaxed text-ink-muted">{{ coreValues[1].description }}</div>
                             </div>
                         </div>
 
@@ -293,48 +288,48 @@ onUnmounted(() => {
                                 v-motion
                                 :initial="{ opacity: 0, y: 18 }"
                                 :visibleOnce="{ opacity: 1, y: 0 }"
-                                class="bg-white rounded-2xl p-8 shadow-xl transform-gpu animate-float"
+                                class="animate-float transform-gpu rounded-2xl bg-surface p-8 shadow-xl"
                                 style="animation-delay: 0.25s"
                             >
-                                <div class="w-10 h-10 rounded-full bg-[#38BDF8]/15 flex items-center justify-center mb-4">
-                                    <svg class="w-5 h-5 text-[#38BDF8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-accent/15">
+                                    <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path :d="coreValues[2].icon" />
                                     </svg>
                                 </div>
-                                <div class="text-[#041228] font-bold text-lg">{{ coreValues[2].title }}</div>
-                                <div class="mt-2 text-sm text-gray-600 leading-relaxed">{{ coreValues[2].description }}</div>
+                                <div class="text-lg font-bold text-ink">{{ coreValues[2].title }}</div>
+                                <div class="mt-2 text-sm leading-relaxed text-ink-muted">{{ coreValues[2].description }}</div>
                             </div>
 
                             <div
                                 v-motion
                                 :initial="{ opacity: 0, y: 18 }"
                                 :visibleOnce="{ opacity: 1, y: 0 }"
-                                class="bg-white rounded-2xl p-8 shadow-xl transform-gpu animate-float"
+                                class="animate-float transform-gpu rounded-2xl bg-surface p-8 shadow-xl"
                                 style="animation-delay: 0.65s"
                             >
-                                <div class="w-10 h-10 rounded-full bg-[#38BDF8]/15 flex items-center justify-center mb-4">
-                                    <svg class="w-5 h-5 text-[#38BDF8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-accent/15">
+                                    <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path :d="coreValues[3].icon" />
                                     </svg>
                                 </div>
-                                <div class="text-[#041228] font-bold text-lg">{{ coreValues[3].title }}</div>
-                                <div class="mt-2 text-sm text-gray-600 leading-relaxed">{{ coreValues[3].description }}</div>
+                                <div class="text-lg font-bold text-ink">{{ coreValues[3].title }}</div>
+                                <div class="mt-2 text-sm leading-relaxed text-ink-muted">{{ coreValues[3].description }}</div>
                             </div>
 
                             <div
                                 v-motion
                                 :initial="{ opacity: 0, y: 18 }"
                                 :visibleOnce="{ opacity: 1, y: 0 }"
-                                class="bg-white rounded-2xl p-8 shadow-xl transform-gpu animate-float"
+                                class="animate-float transform-gpu rounded-2xl bg-surface p-8 shadow-xl"
                                 style="animation-delay: 0.95s"
                             >
-                                <div class="w-10 h-10 rounded-full bg-[#38BDF8]/15 flex items-center justify-center mb-4">
-                                    <svg class="w-5 h-5 text-[#38BDF8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-accent/15">
+                                    <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path :d="coreValues[6].icon" />
                                     </svg>
                                 </div>
-                                <div class="text-[#041228] font-bold text-lg">{{ coreValues[6].title }}</div>
-                                <div class="mt-2 text-sm text-gray-600 leading-relaxed">{{ coreValues[6].description }}</div>
+                                <div class="text-lg font-bold text-ink">{{ coreValues[6].title }}</div>
+                                <div class="mt-2 text-sm leading-relaxed text-ink-muted">{{ coreValues[6].description }}</div>
                             </div>
                         </div>
 
@@ -344,32 +339,32 @@ onUnmounted(() => {
                                 v-motion
                                 :initial="{ opacity: 0, y: 18 }"
                                 :visibleOnce="{ opacity: 1, y: 0 }"
-                                class="bg-white rounded-2xl p-8 shadow-xl transform-gpu animate-float"
+                                class="animate-float transform-gpu rounded-2xl bg-surface p-8 shadow-xl"
                                 style="animation-delay: 0.35s"
                             >
-                                <div class="w-10 h-10 rounded-full bg-[#38BDF8]/15 flex items-center justify-center mb-4">
-                                    <svg class="w-5 h-5 text-[#38BDF8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-accent/15">
+                                    <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path :d="coreValues[4].icon" />
                                     </svg>
                                 </div>
-                                <div class="text-[#041228] font-bold text-lg">{{ coreValues[4].title }}</div>
-                                <div class="mt-2 text-sm text-gray-600 leading-relaxed">{{ coreValues[4].description }}</div>
+                                <div class="text-lg font-bold text-ink">{{ coreValues[4].title }}</div>
+                                <div class="mt-2 text-sm leading-relaxed text-ink-muted">{{ coreValues[4].description }}</div>
                             </div>
 
                             <div
                                 v-motion
                                 :initial="{ opacity: 0, y: 18 }"
                                 :visibleOnce="{ opacity: 1, y: 0 }"
-                                class="bg-white rounded-2xl p-8 shadow-xl transform-gpu animate-float"
+                                class="animate-float transform-gpu rounded-2xl bg-surface p-8 shadow-xl"
                                 style="animation-delay: 0.75s"
                             >
-                                <div class="w-10 h-10 rounded-full bg-[#38BDF8]/15 flex items-center justify-center mb-4">
-                                    <svg class="w-5 h-5 text-[#38BDF8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-accent/15">
+                                    <svg class="h-5 w-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path :d="coreValues[5].icon" />
                                     </svg>
                                 </div>
-                                <div class="text-[#041228] font-bold text-lg">{{ coreValues[5].title }}</div>
-                                <div class="mt-2 text-sm text-gray-600 leading-relaxed">{{ coreValues[5].description }}</div>
+                                <div class="text-lg font-bold text-ink">{{ coreValues[5].title }}</div>
+                                <div class="mt-2 text-sm leading-relaxed text-ink-muted">{{ coreValues[5].description }}</div>
                             </div>
                         </div>
                     </div>
@@ -377,13 +372,13 @@ onUnmounted(() => {
             </div>
         </section>
 
-        <section class="py-24 bg-white">
-            <div class="max-w-7xl mx-auto px-6">
+        <section class="bg-surface py-24">
+            <div class="mx-auto max-w-7xl px-6">
                 <h2
                     v-motion
                     :initial="{ opacity: 0, y: 20 }"
                     :visibleOnce="{ opacity: 1, y: 0 }"
-                    class="text-4xl md:text-5xl font-bold text-[#041228] text-center mb-14"
+                    class="mb-14 text-center text-4xl font-bold text-ink md:text-5xl"
                 >
                     Meet the team
                 </h2>
@@ -397,27 +392,27 @@ onUnmounted(() => {
                         :delay="index * 0.08"
                         class="w-full sm:w-[calc(50%-1.25rem)] lg:w-[calc(25%-1.5rem)] max-w-sm mx-auto"
                     >
-                        <div class="aspect-[4/5] rounded-2xl overflow-hidden bg-[#F1F1F1] mb-6 border border-gray-100 shadow-sm">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-surface-raised shadow-sm">
                             <img
                                 :src="member.image"
                                 :alt="member.name"
                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                             />
                         </div>
-                        <h3 class="text-xl font-semibold text-[#041228]">{{ member.name }}</h3>
-                        <p class="text-[#38BDF8]">{{ member.role }}</p>
+                        <h3 class="text-xl font-semibold text-ink">{{ member.name }}</h3>
+                        <p class="text-accent">{{ member.role }}</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-24 bg-[#F1F1F1]">
-            <div class="max-w-4xl mx-auto px-6 text-center">
+        <section class="bg-surface-raised py-24">
+            <div class="mx-auto max-w-4xl px-6 text-center">
                 <h2
                     v-motion
                     :initial="{ opacity: 0, y: 20 }"
                     :visibleOnce="{ opacity: 1, y: 0 }"
-                    class="text-4xl font-bold text-[#041228] mb-6"
+                    class="mb-6 text-4xl font-bold text-ink"
                 >
                     Let’s work together
                 </h2>
@@ -426,13 +421,13 @@ onUnmounted(() => {
                     :initial="{ opacity: 0, y: 20 }"
                     :visibleOnce="{ opacity: 1, y: 0 }"
                     :delay="0.08"
-                    class="text-gray-600 text-lg mb-8"
+                    class="mb-8 text-lg text-ink-muted"
                 >
                     Share your goals—we’ll help you shape the next release.
                 </p>
                 <Link
                     :href="route('contact')"
-                    class="inline-flex items-center gap-2 px-8 py-4 bg-[#38BDF8] text-[#041228] font-semibold rounded-full hover:bg-[#19427D] hover:text-white transition-all hover:-translate-y-0.5 shadow-md"
+                    class="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 font-semibold text-accent-fg shadow-md transition-all hover:-translate-y-0.5 hover:bg-accent-hover"
                 >
                     Get in touch
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -442,6 +437,6 @@ onUnmounted(() => {
             </div>
         </section>
 
-        <SiteFooter />
-    </div>
+        </div>
+    </MarketingLayout>
 </template>
